@@ -17,11 +17,11 @@ type Petal = {
 };
 
 const PETALS: Petal[] = [
-  { id: "artistas",  label: "ARTISTAS",  to: "/artistas",  cx: "50%", cy: "14%", w: "22%", h: "30%", dx: 0,    dy: -180 },
-  { id: "agenda",    label: "AGENDA",    to: "/agenda",    cx: "90%", cy: "42%", w: "20%", h: "32%", dx: 190,  dy: 0 },
-  { id: "galeria",   label: "GALERÍA",   to: "/galeria",   cx: "78%", cy: "86%", w: "22%", h: "30%", dx: 170,  dy: 130 },
-  { id: "postulate", label: "POSTULATE", to: "/postulate", cx: "22%", cy: "86%", w: "22%", h: "30%", dx: -170, dy: 130 },
-  { id: "ciudades",  label: "CIUDADES",  to: "/ciudades",  cx: "10%", cy: "42%", w: "20%", h: "32%", dx: -190, dy: 0 },
+  { id: "artistas",  label: "ARTISTAS",  to: "/artistas",  cx: "50%", cy: "14%", w: "22%", h: "30%", dx: 0,    dy: -240 },
+  { id: "agenda",    label: "AGENDA",    to: "/agenda",    cx: "90%", cy: "42%", w: "20%", h: "32%", dx: 250,  dy: 0 },
+  { id: "galeria",   label: "GALERÍA",   to: "/galeria",   cx: "78%", cy: "86%", w: "22%", h: "30%", dx: 225,  dy: 175 },
+  { id: "postulate", label: "POSTULATE", to: "/postulate", cx: "22%", cy: "86%", w: "22%", h: "30%", dx: -225, dy: 175 },
+  { id: "ciudades",  label: "CIUDADES",  to: "/ciudades",  cx: "10%", cy: "42%", w: "20%", h: "32%", dx: -250, dy: 0 },
 ];
 
 const GOLD = "#D4AF37";
