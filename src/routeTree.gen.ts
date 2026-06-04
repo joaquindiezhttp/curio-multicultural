@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PostulateRouteImport } from './routes/postulate'
 import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as ArtistasRouteImport } from './routes/artistas'
 import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PostulateRoute = PostulateRouteImport.update({
+  id: '/postulate',
+  path: '/postulate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GaleriaRoute = GaleriaRouteImport.update({
   id: '/galeria',
   path: '/galeria',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/agenda': typeof AgendaRoute
   '/artistas': typeof ArtistasRoute
   '/galeria': typeof GaleriaRoute
+  '/postulate': typeof PostulateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/artistas': typeof ArtistasRoute
   '/galeria': typeof GaleriaRoute
+  '/postulate': typeof PostulateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/agenda': typeof AgendaRoute
   '/artistas': typeof ArtistasRoute
   '/galeria': typeof GaleriaRoute
+  '/postulate': typeof PostulateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agenda' | '/artistas' | '/galeria'
+  fullPaths: '/' | '/agenda' | '/artistas' | '/galeria' | '/postulate'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agenda' | '/artistas' | '/galeria'
-  id: '__root__' | '/' | '/agenda' | '/artistas' | '/galeria'
+  to: '/' | '/agenda' | '/artistas' | '/galeria' | '/postulate'
+  id: '__root__' | '/' | '/agenda' | '/artistas' | '/galeria' | '/postulate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +76,18 @@ export interface RootRouteChildren {
   AgendaRoute: typeof AgendaRoute
   ArtistasRoute: typeof ArtistasRoute
   GaleriaRoute: typeof GaleriaRoute
+  PostulateRoute: typeof PostulateRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/postulate': {
+      id: '/postulate'
+      path: '/postulate'
+      fullPath: '/postulate'
+      preLoaderRoute: typeof PostulateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/galeria': {
       id: '/galeria'
       path: '/galeria'
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   AgendaRoute: AgendaRoute,
   ArtistasRoute: ArtistasRoute,
   GaleriaRoute: GaleriaRoute,
+  PostulateRoute: PostulateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
