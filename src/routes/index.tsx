@@ -15,26 +15,47 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center px-4 py-10">
-      <div className="absolute inset-0 pointer-events-none opacity-30"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 50% 50%, transparent 40%, oklch(0.18 0.04 145) 100%)",
-        }}
-      />
-      <div className="relative text-center mb-6 md:mb-2 z-10">
-        <p className="font-display text-xs md:text-sm tracking-[0.4em] text-gold/70 uppercase">
-          Multicultural · Underground · Vivo
-        </p>
-        <h1 className="font-blackletter text-6xl md:text-8xl text-gold mt-2 leading-none"
-          style={{ textShadow: "0 0 30px oklch(0.82 0.16 88 / 0.3)" }}>
+    <div className="min-h-screen w-full flex flex-col items-center justify-between px-4 py-8 md:py-10 text-center">
+      {/* Top: title + subtitle */}
+      <header className="w-full flex flex-col items-center">
+        <h1
+          className="font-blackletter text-gold leading-none"
+          style={{
+            fontSize: "clamp(3rem, 10vw, 6rem)",
+            color: "var(--gold)",
+            textShadow: "0 0 24px rgba(212,164,55,0.25)",
+          }}
+        >
           CURIO
         </h1>
+        <p
+          className="mt-3 font-display uppercase"
+          style={{
+            color: "var(--gold)",
+            opacity: 0.75,
+            letterSpacing: "0.5em",
+            fontSize: "clamp(0.6rem, 1.6vw, 0.8rem)",
+          }}
+        >
+          Multicultural · Underground · Vivo
+        </p>
+      </header>
+
+      {/* Middle: flower */}
+      <div className="flex-1 w-full flex items-center justify-center my-6">
+        <CurioFlower size={560} />
       </div>
-      <div className="relative z-10">
-        <CurioFlower size={620} />
-      </div>
-      <p className="relative z-10 mt-4 md:mt-2 text-center text-xs md:text-sm text-muted-foreground max-w-md font-display tracking-widest uppercase">
+
+      {/* Bottom hint */}
+      <p
+        className="font-display uppercase"
+        style={{
+          color: "var(--gold)",
+          opacity: 0.7,
+          letterSpacing: "0.35em",
+          fontSize: "clamp(0.6rem, 1.4vw, 0.75rem)",
+        }}
+      >
         Tocá un pétalo · Entrá al jardín
       </p>
     </div>
