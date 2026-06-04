@@ -42,8 +42,8 @@ function Home() {
       </header>
 
       {/* Middle: flower */}
-      <div className="flex-1 w-full flex items-center justify-center my-6">
-        <CurioFlower size={560} />
+      <div className="flex-1 w-full flex items-center justify-center my-6 overflow-visible">
+        <CurioFlower size={300} />
       </div>
 
       {/* Bottom hint */}
