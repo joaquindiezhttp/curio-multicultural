@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PostulateRouteImport } from './routes/postulate'
 import { Route as GaleriaRouteImport } from './routes/galeria'
+import { Route as CiudadesRouteImport } from './routes/ciudades'
 import { Route as ArtistasRouteImport } from './routes/artistas'
 import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ const PostulateRoute = PostulateRouteImport.update({
 const GaleriaRoute = GaleriaRouteImport.update({
   id: '/galeria',
   path: '/galeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CiudadesRoute = CiudadesRouteImport.update({
+  id: '/ciudades',
+  path: '/ciudades',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArtistasRoute = ArtistasRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/artistas': typeof ArtistasRoute
+  '/ciudades': typeof CiudadesRoute
   '/galeria': typeof GaleriaRoute
   '/postulate': typeof PostulateRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/artistas': typeof ArtistasRoute
+  '/ciudades': typeof CiudadesRoute
   '/galeria': typeof GaleriaRoute
   '/postulate': typeof PostulateRoute
 }
@@ -60,21 +68,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/artistas': typeof ArtistasRoute
+  '/ciudades': typeof CiudadesRoute
   '/galeria': typeof GaleriaRoute
   '/postulate': typeof PostulateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agenda' | '/artistas' | '/galeria' | '/postulate'
+  fullPaths:
+    | '/'
+    | '/agenda'
+    | '/artistas'
+    | '/ciudades'
+    | '/galeria'
+    | '/postulate'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agenda' | '/artistas' | '/galeria' | '/postulate'
-  id: '__root__' | '/' | '/agenda' | '/artistas' | '/galeria' | '/postulate'
+  to: '/' | '/agenda' | '/artistas' | '/ciudades' | '/galeria' | '/postulate'
+  id:
+    | '__root__'
+    | '/'
+    | '/agenda'
+    | '/artistas'
+    | '/ciudades'
+    | '/galeria'
+    | '/postulate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgendaRoute: typeof AgendaRoute
   ArtistasRoute: typeof ArtistasRoute
+  CiudadesRoute: typeof CiudadesRoute
   GaleriaRoute: typeof GaleriaRoute
   PostulateRoute: typeof PostulateRoute
 }
@@ -93,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: '/galeria'
       fullPath: '/galeria'
       preLoaderRoute: typeof GaleriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ciudades': {
+      id: '/ciudades'
+      path: '/ciudades'
+      fullPath: '/ciudades'
+      preLoaderRoute: typeof CiudadesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/artistas': {
@@ -123,9 +153,20 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgendaRoute: AgendaRoute,
   ArtistasRoute: ArtistasRoute,
+  CiudadesRoute: CiudadesRoute,
   GaleriaRoute: GaleriaRoute,
   PostulateRoute: PostulateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
