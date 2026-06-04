@@ -32,7 +32,7 @@ function Postulate() {
   const [form, setForm] = useState({
     name: "",
     brand: "",
-    discipline: DISCIPLINES[0],
+    discipline: DISCIPLINES[0] as string,
     city: "",
     instagram: "",
     portfolio: "",
