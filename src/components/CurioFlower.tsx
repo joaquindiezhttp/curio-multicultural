@@ -21,6 +21,7 @@ const PETAL_PATH =
   "M0,0 C-55,-30 -75,-110 -45,-180 C-20,-235 20,-235 45,-180 C75,-110 55,-30 0,0 Z";
 
 export function CurioFlower({ size = 560 }: { size?: number }) {
+  const navigate = useNavigate();
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
