@@ -6,56 +6,93 @@ type Petal = {
   id: string;
   label: string;
   to: string;
-  // Position of the label relative to the flower container (percentages)
-  top: string;
-  left: string;
-  // Approximate hit-area for clicking the petal (percentages)
-  hit: { top: string; left: string; width: string; height: string };
+  // Petal center as % of container (used for the clickable hit area)
+  cx: string;
+  cy: string;
+  // Hit area size as % of container
+  w: string;
+  h: string;
+  // Label positioning (style object merged onto the label span)
+  labelStyle: React.CSSProperties;
 };
 
-// The source SVG aspect ratio is 861.15 x 608.88 (~1.414 : 1).
-// Petal angles in the artwork (clockwise from top):
-//   top, top-right, bottom-right, bottom-left, top-left
+// Layout calibrated to the provided SVG (viewBox 861.15 x 608.88).
+// Petals: top, right, bottom-right, bottom-left, left.
 const PETALS: Petal[] = [
   {
     id: "artistas",
     label: "ARTISTAS",
     to: "/artistas",
-    top: "-6%",
-    left: "50%",
-    hit: { top: "0%", left: "38%", width: "24%", height: "30%" },
+    cx: "50%",
+    cy: "14%",
+    w: "22%",
+    h: "30%",
+    // Centered directly above the top petal, ~20px above it
+    labelStyle: {
+      top: "-28px",
+      left: "50%",
+      transform: "translate(-50%, 0)",
+    },
   },
   {
     id: "agenda",
     label: "AGENDA",
     to: "/agenda",
-    top: "32%",
-    left: "104%",
-    hit: { top: "18%", left: "65%", width: "30%", height: "30%" },
+    cx: "90%",
+    cy: "42%",
+    w: "20%",
+    h: "32%",
+    // Right of the right petal, vertically centered with it
+    labelStyle: {
+      top: "42%",
+      left: "calc(100% + 14px)",
+      transform: "translate(0, -50%)",
+    },
   },
   {
     id: "galeria",
     label: "GALERÍA",
     to: "/galeria",
-    top: "82%",
-    left: "100%",
-    hit: { top: "55%", left: "60%", width: "32%", height: "35%" },
+    cx: "78%",
+    cy: "86%",
+    w: "22%",
+    h: "30%",
+    // Right of the bottom-right petal
+    labelStyle: {
+      top: "86%",
+      left: "calc(100% + 14px)",
+      transform: "translate(0, -50%)",
+    },
   },
   {
     id: "postulate",
     label: "POSTULATE",
     to: "/postulate",
-    top: "82%",
-    left: "0%",
-    hit: { top: "55%", left: "8%", width: "32%", height: "35%" },
+    cx: "22%",
+    cy: "86%",
+    w: "22%",
+    h: "30%",
+    // Left of the bottom-left petal
+    labelStyle: {
+      top: "86%",
+      right: "calc(100% + 14px)",
+      transform: "translate(0, -50%)",
+    },
   },
   {
     id: "ciudades",
     label: "CIUDADES",
     to: "/ciudades",
-    top: "32%",
-    left: "-4%",
-    hit: { top: "18%", left: "5%", width: "30%", height: "30%" },
+    cx: "10%",
+    cy: "42%",
+    w: "20%",
+    h: "32%",
+    // Left of the left petal
+    labelStyle: {
+      top: "42%",
+      right: "calc(100% + 14px)",
+      transform: "translate(0, -50%)",
+    },
   },
 ];
 
@@ -63,18 +100,15 @@ export function CurioFlower({ size = 560 }: { size?: number }) {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState<string | null>(null);
 
-  // Container matches the SVG aspect ratio
   const width = size;
   const height = Math.round(size * (608.88 / 861.15));
+
+  const go = (to: string) => navigate({ to });
 
   return (
     <div
       className="relative mx-auto"
-      style={{
-        width,
-        height,
-        maxWidth: "94vw",
-      }}
+      style={{ width, height, maxWidth: "94vw" }}
     >
       <img
         src={flowerSvg}
@@ -83,9 +117,9 @@ export function CurioFlower({ size = 560 }: { size?: number }) {
         draggable={false}
         style={{
           filter: hovered
-            ? "drop-shadow(0 0 28px rgba(138,36,36,0.55))"
+            ? "drop-shadow(0 0 28px rgba(138,36,36,0.55)) brightness(1.04)"
             : "drop-shadow(0 10px 24px rgba(0,0,0,0.55))",
-          transition: "filter 300ms ease",
+          transition: "filter 280ms ease",
         }}
       />
 
@@ -99,41 +133,61 @@ export function CurioFlower({ size = 560 }: { size?: number }) {
           onMouseLeave={() => setHovered(null)}
           onFocus={() => setHovered(p.id)}
           onBlur={() => setHovered(null)}
-          onClick={() => navigate({ to: p.to })}
+          onClick={() => go(p.to)}
           className="absolute cursor-pointer bg-transparent border-0 p-0 m-0 rounded-full focus:outline-none"
           style={{
-            top: p.hit.top,
-            left: p.hit.left,
-            width: p.hit.width,
-            height: p.hit.height,
+            top: p.cy,
+            left: p.cx,
+            width: p.w,
+            height: p.h,
+            transform: "translate(-50%, -50%)",
           }}
         />
       ))}
 
-      {/* Floating labels outside each petal */}
+      {/* Center "C" → home */}
+      <button
+        type="button"
+        aria-label="Inicio"
+        onClick={() => go("/")}
+        className="absolute cursor-pointer bg-transparent border-0 p-0 m-0 rounded-full focus:outline-none"
+        style={{
+          top: "50%",
+          left: "50%",
+          width: "16%",
+          height: "22%",
+          transform: "translate(-50%, -50%)",
+        }}
+      />
+
+      {/* Floating labels — each label is also clickable and triggers the same hover state */}
       {PETALS.map((p) => {
         const isHover = hovered === p.id;
         return (
-          <span
+          <button
             key={`label-${p.id}`}
-            className="absolute uppercase pointer-events-none select-none whitespace-nowrap"
+            type="button"
+            onMouseEnter={() => setHovered(p.id)}
+            onMouseLeave={() => setHovered(null)}
+            onFocus={() => setHovered(p.id)}
+            onBlur={() => setHovered(null)}
+            onClick={() => go(p.to)}
+            className="absolute uppercase whitespace-nowrap cursor-pointer bg-transparent border-0 p-0 m-0 focus:outline-none"
             style={{
-              top: p.top,
-              left: p.left,
-              transform: "translate(-50%, -50%)",
+              ...p.labelStyle,
               color: "var(--gold)",
               fontFamily: "Pirata One, serif",
-              letterSpacing: "0.28em",
-              fontSize: "clamp(0.75rem, 1.4vw, 1rem)",
+              letterSpacing: "2px",
+              fontSize: "13px",
               opacity: isHover ? 1 : 0.85,
               textShadow: isHover
-                ? "0 0 14px rgba(212,164,55,0.55), 0 2px 6px rgba(0,0,0,0.7)"
+                ? "0 0 14px rgba(212,164,55,0.65), 0 2px 6px rgba(0,0,0,0.7)"
                 : "0 2px 6px rgba(0,0,0,0.7)",
               transition: "opacity 200ms ease, text-shadow 200ms ease",
             }}
           >
             {p.label}
-          </span>
+          </button>
         );
       })}
     </div>
