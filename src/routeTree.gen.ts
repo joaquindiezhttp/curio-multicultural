@@ -14,6 +14,7 @@ import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as CiudadesRouteImport } from './routes/ciudades'
 import { Route as ArtistasRouteImport } from './routes/artistas'
 import { Route as AgendaRouteImport } from './routes/agenda'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 
 const PostulateRoute = PostulateRouteImport.update({
@@ -41,6 +42,11 @@ const AgendaRoute = AgendaRouteImport.update({
   path: '/agenda',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,6 +55,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/agenda': typeof AgendaRoute
   '/artistas': typeof ArtistasRoute
   '/ciudades': typeof CiudadesRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/agenda': typeof AgendaRoute
   '/artistas': typeof ArtistasRoute
   '/ciudades': typeof CiudadesRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/agenda': typeof AgendaRoute
   '/artistas': typeof ArtistasRoute
   '/ciudades': typeof CiudadesRoute
@@ -76,16 +85,25 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/agenda'
     | '/artistas'
     | '/ciudades'
     | '/galeria'
     | '/postulate'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agenda' | '/artistas' | '/ciudades' | '/galeria' | '/postulate'
+  to:
+    | '/'
+    | '/admin'
+    | '/agenda'
+    | '/artistas'
+    | '/ciudades'
+    | '/galeria'
+    | '/postulate'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/agenda'
     | '/artistas'
     | '/ciudades'
@@ -95,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   AgendaRoute: typeof AgendaRoute
   ArtistasRoute: typeof ArtistasRoute
   CiudadesRoute: typeof CiudadesRoute
@@ -139,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AgendaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -151,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   AgendaRoute: AgendaRoute,
   ArtistasRoute: ArtistasRoute,
   CiudadesRoute: CiudadesRoute,
