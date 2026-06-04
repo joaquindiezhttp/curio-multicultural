@@ -1,25 +1,24 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import flowerSvg from "@/assets/curio-flower.svg";
+import flowerSvg from "@/assets/curio-flower-cropped.svg";
 
 type Petal = {
   id: string;
   label: string;
   to: string;
-  // Petal center as % of the flower container — label sits here too
   cx: string;
   cy: string;
-  // Hit-area size as % of container
   w: string;
   h: string;
 };
 
+// Coordinates calibrated to the cropped flower SVG (square canvas, flower fills it).
 const PETALS: Petal[] = [
-  { id: "artistas",  label: "ARTISTAS",  to: "/artistas",  cx: "50%", cy: "18%", w: "22%", h: "28%" },
-  { id: "agenda",    label: "AGENDA",    to: "/agenda",    cx: "86%", cy: "42%", w: "22%", h: "30%" },
-  { id: "galeria",   label: "GALERÍA",   to: "/galeria",   cx: "74%", cy: "82%", w: "24%", h: "30%" },
-  { id: "postulate", label: "POSTULATE", to: "/postulate", cx: "26%", cy: "82%", w: "24%", h: "30%" },
-  { id: "ciudades",  label: "CIUDADES",  to: "/ciudades",  cx: "14%", cy: "42%", w: "22%", h: "30%" },
+  { id: "artistas",  label: "ARTISTAS",  to: "/artistas",  cx: "50%", cy: "16%", w: "22%", h: "24%" },
+  { id: "agenda",    label: "AGENDA",    to: "/agenda",    cx: "87%", cy: "47%", w: "22%", h: "22%" },
+  { id: "galeria",   label: "GALERÍA",   to: "/galeria",   cx: "78%", cy: "78%", w: "22%", h: "24%" },
+  { id: "postulate", label: "POSTULATE", to: "/postulate", cx: "22%", cy: "78%", w: "22%", h: "24%" },
+  { id: "ciudades",  label: "CIUDADES",  to: "/ciudades",  cx: "13%", cy: "47%", w: "22%", h: "22%" },
 ];
 
 const GOLD = "#D4AF37";
