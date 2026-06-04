@@ -55,47 +55,46 @@ export function CurioFlower({ size = 560 }: { size?: number }) {
         {PETALS.map((p) => {
           const isHover = hovered === p.id;
           return (
-            <Link key={p.id} to={p.to}>
-              <g
-                transform={`rotate(${p.angle})`}
-                onMouseEnter={() => setHovered(p.id)}
-                onMouseLeave={() => setHovered(null)}
-                className="cursor-pointer transition-all duration-500"
-                style={{
-                  filter: isHover
-                    ? "drop-shadow(0 0 18px oklch(0.82 0.16 88 / 0.7))"
-                    : "drop-shadow(0 4px 10px rgba(0,0,0,0.5))",
-                  transformOrigin: "0 0",
-                }}
+            <g
+              key={p.id}
+              transform={`rotate(${p.angle})`}
+              onMouseEnter={() => setHovered(p.id)}
+              onMouseLeave={() => setHovered(null)}
+              onClick={() => navigate({ to: p.to })}
+              className="cursor-pointer transition-all duration-500"
+              style={{
+                filter: isHover
+                  ? "drop-shadow(0 0 18px oklch(0.82 0.16 88 / 0.7))"
+                  : "drop-shadow(0 4px 10px rgba(0,0,0,0.5))",
+                transformOrigin: "0 0",
+              }}
+            >
+              <path
+                d={PETAL_PATH}
+                fill={isHover ? "url(#petalGradHover)" : "url(#petalGrad)"}
+                stroke="oklch(0.82 0.16 88 / 0.5)"
+                strokeWidth={isHover ? 2 : 1}
+                style={{ filter: "url(#rough)" }}
+              />
+              <path
+                d="M0,0 Q -10,-80 0,-200"
+                fill="none"
+                stroke="oklch(0.82 0.16 88 / 0.4)"
+                strokeWidth="0.8"
+              />
+              <text
+                x="0"
+                y="-130"
+                textAnchor="middle"
+                className="font-blackletter pointer-events-none select-none"
+                fill={isHover ? "oklch(0.22 0.04 145)" : "oklch(0.88 0.14 88)"}
+                fontSize="22"
+                transform={`rotate(${-p.angle})`}
+                style={{ fontFamily: "Pirata One, serif", letterSpacing: "0.1em" }}
               >
-                <path
-                  d={PETAL_PATH}
-                  fill={isHover ? "url(#petalGradHover)" : "url(#petalGrad)"}
-                  stroke="oklch(0.82 0.16 88 / 0.5)"
-                  strokeWidth={isHover ? 2 : 1}
-                  style={{ filter: "url(#rough)" }}
-                />
-                {/* Veins */}
-                <path
-                  d="M0,0 Q -10,-80 0,-200"
-                  fill="none"
-                  stroke="oklch(0.82 0.16 88 / 0.4)"
-                  strokeWidth="0.8"
-                />
-                <text
-                  x="0"
-                  y="-130"
-                  textAnchor="middle"
-                  className="font-blackletter pointer-events-none select-none"
-                  fill={isHover ? "oklch(0.22 0.04 145)" : "oklch(0.88 0.14 88)"}
-                  fontSize="22"
-                  transform={`rotate(${-p.angle})`}
-                  style={{ fontFamily: "Pirata One, serif", letterSpacing: "0.1em" }}
-                >
-                  {p.label}
-                </text>
-              </g>
-            </Link>
+                {p.label}
+              </text>
+            </g>
           );
         })}
 
