@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CurioFlower } from "@/components/CurioFlower";
+import CurioAgent from "@/components/CurioAgent";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -58,6 +59,7 @@ function Home() {
       >
         Tocá un pétalo · Entrá al jardín
       </p>
+      <CurioAgent />
     </div>
   );
 }
