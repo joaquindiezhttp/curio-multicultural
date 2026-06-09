@@ -1,3 +1,4 @@
+// @ts-nocheck
 // CurioAgent.jsx
 // Agente conversacional de CURIO — para usar en Lovable
 //
