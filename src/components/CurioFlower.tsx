@@ -148,3 +148,19 @@ export function CurioFlower({ size = 560 }: CurioFlowerProps) {
 }
 
 export default CurioFlower;
+
+export function CurioMark({ size = 36 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="313 294 112 112" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="markGrad" cx="42%" cy="38%" r="65%">
+          <stop offset="0%" stopColor="#F4D446" />
+          <stop offset="60%" stopColor="#D4AF37" />
+          <stop offset="100%" stopColor="#A8841C" />
+        </radialGradient>
+      </defs>
+      <circle cx={369} cy={350} r={52} fill="url(#markGrad)" stroke="#A8841C" strokeWidth={4} />
+      <text x={360} y={386} textAnchor="middle" fontFamily='"Darkcastle PERSONAL USE", serif' fontSize={72} fill="#6E160C">C</text>
+    </svg>
+  );
+}
