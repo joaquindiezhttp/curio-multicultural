@@ -59,6 +59,7 @@ function Home() {
       >
         Tocá un pétalo · Entrá al jardín
       </p>
+      <CurioAgent />
     </div>
   );
 }
