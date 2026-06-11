@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CURIO flower navigation">
+  <style>
+    @font-face {
+      font-family: "Stinger Fit Trial";
+      src: url("/fonts/StingerFitTrial-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Darkcastle";
+      src: url("/fonts/Darkcastle-PersonalUse.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* hover: petals light up + scale around the flower center */
+    .petal-item {
+      cursor: pointer;
+      transform-box: view-box;
+      transform-origin: 350px 350px;
+      transition: transform .25s ease;
+    }
+    .petal-item:hover { transform: scale(1.07); }
+    .petal { transition: fill .25s ease; }
+    .petal-item:hover .petal { fill: #9B2B1C; }
+
+    .petal-label {
+      fill: #E8C547;
+      font-family: "Stinger Fit Trial", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
+    .center-c {
+      fill: #6E160C;
+      font-family: "Darkcastle", serif;
+      font-weight: 400;
+      font-size: 82px;
+    }
+  </style>
+
+  <defs>
+    <radialGradient id="petalGrad" cx="50%" cy="35%" r="75%">
+      <stop offset="0%" stop-color="#8B2418"/>
+      <stop offset="55%" stop-color="#6E160C"/>
+      <stop offset="100%" stop-color="#4A0E07"/>
+    </radialGradient>
+    <radialGradient id="goldGrad" cx="42%" cy="38%" r="65%">
+      <stop offset="0%" stop-color="#F4D446"/>
+      <stop offset="60%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#A8841C"/>
+    </radialGradient>
+    <!-- base arc reused by every label; each label group translates + rotates it into place -->
+    <path id="labelArc" d="M-70,0 A130,130 0 0,1 70,0" fill="none"/>
+  </defs>
+
+  <!-- ===== 5 separate petals (each its own hoverable group) ===== -->
+  <g class="petal-item" id="petal-artistas">
+    <path class="petal" transform="rotate(0 350 350)" d="M 350 352 C 312 332 208.806 286.434 250 232 C 264 213.5 267 154 309 160 C 327 163 348 162 350 176 C 352 162 379 172 397 169 C 439 163 454 176 450 232 C 444 300 388 332 350 352 Z" fill="url(#petalGrad)" stroke="#380C06" stroke-width="1.5"/>
+    <path transform="rotate(0 350 350)" d="M350,344 C347,272 347,210 350,172" fill="none" stroke="#430F09" stroke-width="1.2" opacity="0.35"/>
+  </g>
+  <g class="petal-item" id="petal-agenda">
+    <path class="petal" transform="rotate(72 350 350)" d="M 350 352 C 312 332 208.806 286.434 250 232 C 264 213.5 267 154 309 160 C 327 163 348 162 350 176 C 352 162 379 172 397 169 C 439 163 454 176 450 232 C 444 300 388 332 350 352 Z" fill="url(#petalGrad)" stroke="#380C06" stroke-width="1.5"/>
+    <path transform="rotate(72 350 350)" d="M350,344 C347,272 347,210 350,172" fill="none" stroke="#430F09" stroke-width="1.2" opacity="0.35"/>
+  </g>
+  <g class="petal-item" id="petal-galeria">
+    <path class="petal" transform="rotate(144 350 350)" d="M 350 352 C 312 332 208.806 286.434 250 232 C 264 213.5 267 154 309 160 C 327 163 348 162 350 176 C 352 162 379 172 397 169 C 439 163 454 176 450 232 C 444 300 388 332 350 352 Z" fill="url(#petalGrad)" stroke="#380C06" stroke-width="1.5"/>
+    <path transform="rotate(144 350 350)" d="M350,344 C347,272 347,210 350,172" fill="none" stroke="#430F09" stroke-width="1.2" opacity="0.35"/>
+  </g>
+  <g class="petal-item" id="petal-postulate">
+    <path class="petal" transform="rotate(216 350 350)" d="M 350 352 C 312 332 208.806 286.434 250 232 C 264 213.5 267 154 309 160 C 327 163 348 162 350 176 C 352 162 379 172 397 169 C 439 163 454 176 450 232 C 444 300 388 332 350 352 Z" fill="url(#petalGrad)" stroke="#380C06" stroke-width="1.5"/>
+    <path transform="rotate(216 350 350)" d="M350,344 C347,272 347,210 350,172" fill="none" stroke="#430F09" stroke-width="1.2" opacity="0.35"/>
+  </g>
+  <g class="petal-item" id="petal-ciudades">
+    <path class="petal" transform="rotate(288 350 350)" d="M 350 352 C 312 332 208.806 286.434 250 232 C 264 213.5 267 154 309 160 C 327 163 348 162 350 176 C 352 162 379 172 397 169 C 439 163 454 176 450 232 C 444 300 388 332 350 352 Z" fill="url(#petalGrad)" stroke="#380C06" stroke-width="1.5"/>
+    <path transform="rotate(288 350 350)" d="M350,344 C347,272 347,210 350,172" fill="none" stroke="#430F09" stroke-width="1.2" opacity="0.35"/>
+  </g>
+
+  <!-- ===== curved textPath labels (oriented per petal to stay legible) ===== -->
+  <g transform="translate(350 218) rotate(0)">
+    <text class="petal-label"><textPath href="#labelArc" startOffset="50%" text-anchor="middle">ARTISTAS</textPath></text>
+  </g>
+  <g transform="translate(488 315) rotate(72)">
+    <text class="petal-label"><textPath href="#labelArc" startOffset="50%" text-anchor="middle">AGENDA</textPath></text>
+  </g>
+  <g transform="translate(435 478) rotate(-36)">
+    <text class="petal-label"><textPath href="#labelArc" startOffset="50%" text-anchor="middle">GALERÍA</textPath></text>
+  </g>
+  <g transform="translate(264 478) rotate(36)">
+    <text class="petal-label"><textPath href="#labelArc" startOffset="50%" text-anchor="middle">POSTULATE</textPath></text>
+  </g>
+  <g transform="translate(212 315) rotate(-72)">
+    <text class="petal-label"><textPath href="#labelArc" startOffset="50%" text-anchor="middle">CIUDADES</textPath></text>
+  </g>
+
+  <!-- ===== gold center + Darkcastle "C" ===== -->
+  <g id="center">
+    <circle cx="350" cy="350" r="60" fill="url(#goldGrad)" stroke="#A8841C" stroke-width="5"/>
+    <text class="center-c" x="350" y="350" text-anchor="middle" dominant-baseline="central">C</text>
+  </g>
+</svg>
