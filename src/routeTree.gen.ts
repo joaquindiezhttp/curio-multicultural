@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as PostulateRouteImport } from './routes/postulate'
 import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as CiudadesRouteImport } from './routes/ciudades'
@@ -17,6 +18,11 @@ import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PrivacidadRoute = PrivacidadRouteImport.update({
+  id: '/privacidad',
+  path: '/privacidad',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PostulateRoute = PostulateRouteImport.update({
   id: '/postulate',
   path: '/postulate',
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/ciudades': typeof CiudadesRoute
   '/galeria': typeof GaleriaRoute
   '/postulate': typeof PostulateRoute
+  '/privacidad': typeof PrivacidadRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/ciudades': typeof CiudadesRoute
   '/galeria': typeof GaleriaRoute
   '/postulate': typeof PostulateRoute
+  '/privacidad': typeof PrivacidadRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/ciudades': typeof CiudadesRoute
   '/galeria': typeof GaleriaRoute
   '/postulate': typeof PostulateRoute
+  '/privacidad': typeof PrivacidadRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/ciudades'
     | '/galeria'
     | '/postulate'
+    | '/privacidad'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/ciudades'
     | '/galeria'
     | '/postulate'
+    | '/privacidad'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/ciudades'
     | '/galeria'
     | '/postulate'
+    | '/privacidad'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,10 +131,18 @@ export interface RootRouteChildren {
   CiudadesRoute: typeof CiudadesRoute
   GaleriaRoute: typeof GaleriaRoute
   PostulateRoute: typeof PostulateRoute
+  PrivacidadRoute: typeof PrivacidadRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/privacidad': {
+      id: '/privacidad'
+      path: '/privacidad'
+      fullPath: '/privacidad'
+      preLoaderRoute: typeof PrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/postulate': {
       id: '/postulate'
       path: '/postulate'
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   CiudadesRoute: CiudadesRoute,
   GaleriaRoute: GaleriaRoute,
   PostulateRoute: PostulateRoute,
+  PrivacidadRoute: PrivacidadRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
