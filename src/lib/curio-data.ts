@@ -32,10 +32,11 @@ export type Artist = {
 export const ARTISTS: Artist[] = [
   { id: "1", name: "INSITU", act: "Jam Musical / Open Mic", discipline: "Música", venue: "INSITU", image: "/__l5e/assets-v1/d9c8a851-97b1-4880-8b34-401310342ef6/insitu-band.jpg" },
   { id: "2", name: "MAV DALI", act: "DJ Set", discipline: "Música" },
-  { id: "3", name: "DAMO", act: "Indumentaria Intervenida", discipline: "Indumentaria", image: "/__l5e/assets-v1/3b4bb781-ed5d-4a03-bf31-b48cbb5d49a2/damo.jpg" },
-  { id: "4", name: "EVA.BELLONI", act: "Indumentaria Intervenida", discipline: "Indumentaria" },
+  { id: "3", name: "DAMO", act: "Indumentaria Intervenida y Diseño Propio", discipline: "Indumentaria", image: "/__l5e/assets-v1/3b4bb781-ed5d-4a03-bf31-b48cbb5d49a2/damo.jpg" },
+  { id: "4", name: "EVA.BELLONI", act: "Indumentaria Intervenida y Diseño Propio", discipline: "Indumentaria" },
   { id: "5", name: "REAL.CLOTHING", act: "Indumentaria Intervenida", discipline: "Indumentaria" },
-  { id: "6", name: "INK.CLOTHING", act: "Indumentaria Intervenida", discipline: "Indumentaria" },
+  { id: "6", name: "INK.CLOTHING", act: "Indumentaria Vintage", discipline: "Indumentaria" },
+  
   { id: "7", name: "LA PELU DE VANDI", act: "Hair Tattoo", discipline: "Hair Tattoo" },
   { id: "8", name: "CHIKI & MOX", act: "Graffiti en Vivo", discipline: "Graffiti", image: "/__l5e/assets-v1/f0c5f140-3d79-4565-87b3-01d58de410c9/mox-graffiti.jpg" },
   { id: "9", name: "FEDE BESIO", act: "Poesía", discipline: "Poesía" },
