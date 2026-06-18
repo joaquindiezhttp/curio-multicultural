@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CurioFlower } from "@/components/CurioFlower";
+import curioTitleAsset from "@/assets/curio-title.png.asset.json";
 import CurioAgent from "@/components/CurioAgent";
 
 export const Route = createFileRoute("/")({
@@ -19,15 +20,16 @@ function Home() {
     <div className="min-h-screen w-full flex flex-col items-center px-4 py-6 md:py-8 text-center">
       {/* Top: title + subtitle */}
       <header className="w-full flex flex-col items-center">
-        <h1
-          className="font-blackletter text-gold leading-none"
-          style={{
-            fontSize: "clamp(3rem, 10vw, 6rem)",
-            color: "var(--gold)",
-            textShadow: "0 0 24px rgba(212,164,55,0.25)",
-          }}
-        >
-          CURIO
+        <h1 className="leading-none m-0">
+          <img
+            src={curioTitleAsset.url}
+            alt="CURIO"
+            className="w-auto"
+            style={{
+              height: "clamp(4rem, 14vw, 9rem)",
+              filter: "drop-shadow(0 0 24px rgba(212,164,55,0.25))",
+            }}
+          />
         </h1>
         <p
           className="mt-3 font-display uppercase"
