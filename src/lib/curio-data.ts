@@ -26,12 +26,13 @@ export type Artist = {
   discipline: Discipline;
   venue?: string;
   instagram?: string;
+  image?: string;
 };
 
 export const ARTISTS: Artist[] = [
-  { id: "1", name: "INSITU", act: "Jam Musical / Open Mic", discipline: "Música", venue: "INSITU" },
+  { id: "1", name: "INSITU", act: "Jam Musical / Open Mic", discipline: "Música", venue: "INSITU", image: "/__l5e/assets-v1/d9c8a851-97b1-4880-8b34-401310342ef6/insitu-band.jpg" },
   { id: "2", name: "MAV DALI", act: "DJ Set", discipline: "Música" },
-  { id: "3", name: "DAMO", act: "Indumentaria Intervenida", discipline: "Indumentaria" },
+  { id: "3", name: "DAMO", act: "Indumentaria Intervenida", discipline: "Indumentaria", image: "/__l5e/assets-v1/3b4bb781-ed5d-4a03-bf31-b48cbb5d49a2/damo.jpg" },
   { id: "4", name: "EVA.BELLONI", act: "Indumentaria Intervenida", discipline: "Indumentaria" },
   { id: "5", name: "REAL.CLOTHING", act: "Indumentaria Intervenida", discipline: "Indumentaria" },
   { id: "6", name: "INK.CLOTHING", act: "Indumentaria Intervenida", discipline: "Indumentaria" },
