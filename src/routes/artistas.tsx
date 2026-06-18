@@ -20,7 +20,7 @@ function Artistas() {
   return (
     <PageShell
       title="Artistas"
-      subtitle="Voces, manos y máquinas que dan forma a cada edición de Curio."
+      subtitle="Voces, manos y máquinas que son parte de la familia Curio."
     >
       <div className="flex flex-wrap gap-2 mb-8">
         {(["Todos", ...DISCIPLINES] as const).map((d) => (
