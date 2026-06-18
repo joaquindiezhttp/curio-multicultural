@@ -16,9 +16,13 @@ export default function CurioAgent() {
         <h2
           className="font-blackletter mt-2 leading-none"
           style={{
-            color: "var(--gold)",
+            color: "#8a8a1f",
+            backgroundImage: "linear-gradient(180deg, #a8a82a 0%, #6b6b15 60%, #3d4a10 100%)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            WebkitTextFillColor: "transparent",
             fontSize: "clamp(2rem, 5vw, 3rem)",
-            textShadow: "0 0 24px rgba(212,164,55,0.25)",
+            textShadow: "0 0 24px rgba(138,138,31,0.25)",
           }}
         >
           Curio
