@@ -66,7 +66,7 @@ export function CurioFlower({ size = 560 }: CurioFlowerProps) {
     <svg
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="576 343 893 893"
+      viewBox="150 130 440 440"
       width={size}
       height={size}
       preserveAspectRatio="xMidYMid meet"
