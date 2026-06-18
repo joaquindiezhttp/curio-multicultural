@@ -37,7 +37,7 @@ export const ARTISTS: Artist[] = [
   { id: "5", name: "REAL.CLOTHING", act: "Indumentaria Intervenida", discipline: "Indumentaria" },
   { id: "6", name: "INK.CLOTHING", act: "Indumentaria Intervenida", discipline: "Indumentaria" },
   { id: "7", name: "LA PELU DE VANDI", act: "Hair Tattoo", discipline: "Hair Tattoo" },
-  { id: "8", name: "CHIKI & MOX", act: "Graffiti en Vivo", discipline: "Graffiti" },
+  { id: "8", name: "CHIKI & MOX", act: "Graffiti en Vivo", discipline: "Graffiti", image: "/__l5e/assets-v1/f0c5f140-3d79-4565-87b3-01d58de410c9/mox-graffiti.jpg" },
   { id: "9", name: "FEDE BESIO", act: "Poesía", discipline: "Poesía" },
   { id: "9b", name: "FEDE BESIO", act: "Exposición Fotográfica", discipline: "Fotografía" },
   { id: "10", name: "TOMI GREENE", act: "Flash Tattoo", discipline: "Flash Tattoo" },
