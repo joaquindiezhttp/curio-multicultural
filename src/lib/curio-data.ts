@@ -38,7 +38,7 @@ export const ARTISTS: Artist[] = [
   { id: "7", name: "LA PELU DE VANDI", act: "Hair Tattoo", discipline: "Hair Tattoo" },
   { id: "8", name: "CHIKI & MOX", act: "Graffiti en Vivo", discipline: "Graffiti" },
   { id: "9", name: "FEDE BESIO", act: "Poesía y Fotografía", discipline: "Poesía" },
-  { id: "9b", name: "FEDE BESIO", act: "Fotografía en Vivo", discipline: "Fotografía" },
+  { id: "9b", name: "FEDE BESIO", act: "Exposición Fotográfica", discipline: "Fotografía" },
   { id: "10", name: "TOMI GREENE", act: "Flash Tattoo", discipline: "Flash Tattoo" },
 ];
 
