@@ -64,11 +64,14 @@ export function CurioFlower({ size = 560 }: CurioFlowerProps) {
 
   return (
     <svg
-      width={size}
-      viewBox="38 0 662 700"
+      version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ maxWidth: "100%", height: "auto", overflow: "visible" }}
-      aria-label="Flor Curio · Navegación"
+      viewBox="576 343 893 893"
+      width={size}
+      height={size}
+      preserveAspectRatio="xMidYMid meet"
+      style={{ maxWidth: "100%", height: "auto", display: "block", margin: "0 auto", overflow: "visible" }}
+      aria-label="Flor Curio"
     >
       <defs>
         <radialGradient id="petalGrad" cx="50%" cy="35%" r="75%">
