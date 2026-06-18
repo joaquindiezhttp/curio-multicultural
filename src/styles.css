@@ -49,8 +49,9 @@
   --color-gold: var(--gold);
   --color-wine: var(--wine);
   --color-moss: var(--moss);
-  --font-display: "Abril Fatface", "Playfair Display", serif;
-  --font-blackletter: "Abril Fatface", "Playfair Display", serif;
+  --font-display: "Pirata One", "UnifrakturCook", serif;
+  --font-blackletter: "UnifrakturCook", "Pirata One", serif;
+  --font-hero: "Abril Fatface", "Playfair Display", serif;
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
