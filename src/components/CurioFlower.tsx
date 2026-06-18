@@ -24,7 +24,7 @@ export function CurioFlower({ size = 540 }: CurioFlowerProps) {
     <svg
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="452 189 1180 1180"
+      viewBox="435 169 1200 1200"
       width={size}
       height={size}
       preserveAspectRatio="xMidYMid meet"
@@ -34,7 +34,7 @@ export function CurioFlower({ size = 540 }: CurioFlowerProps) {
       <style>{`
         .petal-group { cursor: pointer; transition: filter 240ms ease; }
         .petal-group text {
-          font-family: Georgia, 'Times New Roman', serif;
+          font-family: 'Stinger Fit Trial', 'Stinger', Georgia, serif;
           font-weight: 700; font-size: 40px; letter-spacing: 3px;
           fill: #E8C547; text-anchor: middle; text-transform: uppercase;
           transition: fill 240ms ease;
