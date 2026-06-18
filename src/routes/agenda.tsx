@@ -1,100 +1,97 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 import { PageShell } from "@/components/Navbar";
-import { AGENDA, DISCIPLINES, type Discipline } from "@/lib/curio-data";
+import { ARTISTS, DISCIPLINES, type Discipline } from "@/lib/curio-data";
 
 export const Route = createFileRoute("/agenda")({
   head: () => ({
     meta: [
       { title: "Agenda · CURIO" },
-      { name: "description", content: "Cronograma de actividades de la próxima edición Curio." },
+      { name: "description", content: "Edición 01 · 16 de mayo 2026 · Buenos Aires (Núñez)." },
     ],
   }),
   component: Agenda,
 });
 
-const STORAGE_KEY = "curio-saved";
+const EVENT_INFO = [
+  { label: "Edición", value: "01" },
+  { label: "Fecha", value: "16 de mayo 2026" },
+  { label: "Ciudad", value: "Buenos Aires · Núñez" },
+  { label: "Puertas", value: "17:00" },
+  { label: "Cierre", value: "02:00" },
+  { label: "Entrada", value: "$8.000" },
+];
 
 function Agenda() {
-  const [filter, setFilter] = useState<Discipline | "Todos">("Todos");
-  const [saved, setSaved] = useState<string[]>([]);
-
-  useEffect(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) setSaved(JSON.parse(raw));
-  }, []);
-
-  const toggle = (id: string) => {
-    const next = saved.includes(id) ? saved.filter((s) => s !== id) : [...saved, id];
-    setSaved(next);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-  };
-
-  const filtered = filter === "Todos" ? AGENDA : AGENDA.filter((a) => a.discipline === filter);
-
   return (
     <PageShell
       title="Agenda"
-      subtitle="Edición 01 · Buenos Aires · Tocá una actividad para guardarla en tu agenda."
+      subtitle="Edición 01 · Buenos Aires · una noche, cinco mundos."
     >
-      <div className="flex flex-wrap gap-2 mb-8">
-        {(["Todos", ...DISCIPLINES] as const).map((d) => (
-          <button
-            key={d}
-            onClick={() => setFilter(d)}
-            className={`px-3 py-1.5 text-xs uppercase tracking-widest font-display border transition-all ${
-              filter === d
-                ? "bg-gold text-background border-gold"
-                : "border-border text-foreground/70 hover:border-gold hover:text-gold"
-            }`}
-          >
-            {d}
-          </button>
-        ))}
-      </div>
-      <ol className="relative border-l-2 border-gold/40 ml-3 space-y-6">
-        {filtered.map((item) => {
-          const isSaved = saved.includes(item.id);
-          return (
-            <li key={item.id} className="pl-6 relative">
-              <span className={`absolute -left-[9px] top-2 h-4 w-4 rounded-full border-2 ${
-                isSaved ? "bg-gold border-gold" : "bg-background border-gold/70"
-              }`} />
-              <button
-                onClick={() => toggle(item.id)}
-                className={`w-full text-left border bg-card/50 transition-all hover:border-gold overflow-hidden ${
-                  isSaved ? "border-gold" : "border-border"
-                }`}
-              >
-                {item.image && (
-                  <div className="relative aspect-[16/9] overflow-hidden border-b border-border">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
-                  </div>
-                )}
-                <div className="p-5">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap">
-                    <span className="font-blackletter text-3xl text-gold">{item.time}</span>
-                    <span className="text-[10px] uppercase tracking-[0.25em] text-wine font-display px-2 py-1 border border-wine/60">
-                      {item.discipline}
-                    </span>
-                  </div>
-                  <h3 className="mt-2 text-lg font-medium">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{item.artist}</p>
-                  <p className="text-xs mt-3 text-gold/80 font-display tracking-widest uppercase">
-                    {isSaved ? "✦ Guardado en mi agenda" : "+ Guardar"}
-                  </p>
+      {/* Datos del evento */}
+      <section className="border border-gold/50 bg-card/40 p-6 md:p-8 mb-10">
+        <p className="font-display text-[10px] tracking-[0.3em] text-gold uppercase">
+          Información del evento
+        </p>
+        <h2 className="font-blackletter text-4xl md:text-5xl text-gold mt-2">
+          16 · Mayo · 2026
+        </h2>
+        <p className="mt-2 text-sm text-foreground/80">
+          Buenos Aires · Núñez. La dirección exacta se confirma por nuestras redes los días previos.
+        </p>
+        <dl className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
+          {EVENT_INFO.map((i) => (
+            <div key={i.label} className="border-l-2 border-gold/60 pl-3">
+              <dt className="font-display text-[10px] tracking-[0.25em] uppercase text-foreground/60">
+                {i.label}
+              </dt>
+              <dd className="text-base text-foreground mt-1">{i.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      {/* Disciplinas y artistas que participan */}
+      <section>
+        <p className="font-display text-[10px] tracking-[0.3em] text-wine uppercase">
+          En esta edición
+        </p>
+        <h3 className="font-blackletter text-3xl text-gold mt-2 mb-6">
+          Disciplinas & artistas
+        </h3>
+        <p className="text-sm text-foreground/70 mb-8 max-w-2xl">
+          El cronograma fluye durante la noche, sin horarios fijos por actividad. Estas son las disciplinas y los artistas que toman parte de la edición.
+        </p>
+
+        <div className="space-y-6">
+          {DISCIPLINES.map((d) => {
+            const items = ARTISTS.filter((a) => a.discipline === d);
+            if (items.length === 0) return null;
+            return (
+              <div key={d} className="border border-border bg-card/30 p-5">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-wine font-display px-2 py-1 border border-wine/60">
+                    {d as Discipline}
+                  </span>
+                  <span className="text-xs font-display tracking-widest uppercase text-gold/70">
+                    {items.length} {items.length === 1 ? "artista" : "artistas"}
+                  </span>
                 </div>
-              </button>
-            </li>
-          );
-        })}
-      </ol>
+                <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+                  {items.map((a) => (
+                    <li key={a.id} className="flex items-baseline gap-3">
+                      <span className="text-gold">✦</span>
+                      <span>
+                        <span className="font-medium">{a.name}</span>
+                        <span className="text-foreground/60 text-sm"> · {a.act}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </PageShell>
   );
 }

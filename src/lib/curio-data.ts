@@ -72,10 +72,7 @@ export type City = {
 };
 
 export const CITIES: City[] = [
-  { id: "c1", city: "Buenos Aires", edition: 1, date: "Marzo 2026", status: "Realizado" },
-  { id: "c2", city: "Córdoba", edition: 2, date: "Junio 2026", status: "Próximamente" },
-  { id: "c3", city: "Rosario", edition: 3, date: "Septiembre 2026", status: "Próximamente" },
-  { id: "c4", city: "Montevideo", edition: 4, date: "Noviembre 2026", status: "Próximamente" },
+  { id: "c1", city: "Buenos Aires", edition: 1, date: "16 de mayo 2026", status: "Realizado" },
 ];
 
 export type GalleryItem = {
