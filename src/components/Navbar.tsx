@@ -15,7 +15,7 @@ export function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link to="/" className="flex items-center gap-3 group">
           <span className="transition-transform group-hover:rotate-45 duration-700">
-            <CurioMark size={36} />
+            <CurioMark size={56} />
           </span>
           <span className="font-blackletter text-2xl text-gold tracking-wider">CURIO</span>
         </Link>
