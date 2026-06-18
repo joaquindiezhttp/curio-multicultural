@@ -50,10 +50,11 @@ export type AgendaItem = {
   title: string;
   artist: string;
   discipline: Discipline;
+  image?: string;
 };
 
 export const AGENDA: AgendaItem[] = [
-  { id: "a1", time: "19:00", title: "Apertura · Graffiti en Vivo", artist: "CHIKI & MOX", discipline: "Graffiti" },
+  { id: "a1", time: "19:00", title: "Apertura · Graffiti en Vivo", artist: "CHIKI & MOX", discipline: "Graffiti", image: "/__l5e/assets-v1/f0c5f140-3d79-4565-87b3-01d58de410c9/mox-graffiti.jpg" },
   { id: "a2", time: "19:30", title: "Hair Tattoo Sessions", artist: "LA PELU DE VANDI", discipline: "Hair Tattoo" },
   { id: "a3", time: "20:00", title: "Indumentaria Intervenida · Showroom", artist: "DAMO · EVA.BELLONI · REAL · INK", discipline: "Indumentaria" },
   { id: "a4", time: "20:30", title: "Flash Tattoo Walk-ins", artist: "TOMI GREENE", discipline: "Flash Tattoo" },

@@ -62,21 +62,34 @@ function Agenda() {
               }`} />
               <button
                 onClick={() => toggle(item.id)}
-                className={`w-full text-left border bg-card/50 p-5 transition-all hover:border-gold ${
+                className={`w-full text-left border bg-card/50 transition-all hover:border-gold overflow-hidden ${
                   isSaved ? "border-gold" : "border-border"
                 }`}
               >
-                <div className="flex items-baseline justify-between gap-4 flex-wrap">
-                  <span className="font-blackletter text-3xl text-gold">{item.time}</span>
-                  <span className="text-[10px] uppercase tracking-[0.25em] text-wine font-display px-2 py-1 border border-wine/60">
-                    {item.discipline}
-                  </span>
+                {item.image && (
+                  <div className="relative aspect-[16/9] overflow-hidden border-b border-border">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
+                  </div>
+                )}
+                <div className="p-5">
+                  <div className="flex items-baseline justify-between gap-4 flex-wrap">
+                    <span className="font-blackletter text-3xl text-gold">{item.time}</span>
+                    <span className="text-[10px] uppercase tracking-[0.25em] text-wine font-display px-2 py-1 border border-wine/60">
+                      {item.discipline}
+                    </span>
+                  </div>
+                  <h3 className="mt-2 text-lg font-medium">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground mt-1">{item.artist}</p>
+                  <p className="text-xs mt-3 text-gold/80 font-display tracking-widest uppercase">
+                    {isSaved ? "✦ Guardado en mi agenda" : "+ Guardar"}
+                  </p>
                 </div>
-                <h3 className="mt-2 text-lg font-medium">{item.title}</h3>
-                <p className="text-sm text-muted-foreground mt-1">{item.artist}</p>
-                <p className="text-xs mt-3 text-gold/80 font-display tracking-widest uppercase">
-                  {isSaved ? "✦ Guardado en mi agenda" : "+ Guardar"}
-                </p>
               </button>
             </li>
           );
