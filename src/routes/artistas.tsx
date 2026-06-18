@@ -47,7 +47,7 @@ function Artistas() {
             <p className="text-xs uppercase tracking-[0.25em] text-gold/80 font-display">
               {a.discipline}
             </p>
-            <h3 className="font-blackletter text-3xl text-gold mt-2">{a.name}</h3>
+            <h3 className="font-serif text-3xl text-gold mt-2">{a.name}</h3>
             <p className="mt-3 text-sm text-foreground/80">{a.act}</p>
             {a.venue && (
               <p className="mt-2 text-xs text-muted-foreground">@ {a.venue}</p>
