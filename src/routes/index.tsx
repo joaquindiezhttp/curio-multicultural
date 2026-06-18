@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-between px-4 py-8 md:py-10 text-center">
+    <div className="min-h-screen w-full flex flex-col items-center px-4 py-6 md:py-8 text-center">
       {/* Top: title + subtitle */}
       <header className="w-full flex flex-col items-center">
         <h1
@@ -43,7 +43,7 @@ function Home() {
       </header>
 
       {/* Middle: flower */}
-      <div className="flex-1 w-full flex items-center justify-center my-6 overflow-visible">
+      <div className="w-full flex items-center justify-center mt-2 mb-4 overflow-visible">
         <CurioFlower size={780} />
       </div>
 
