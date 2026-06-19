@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      postulaciones: {
+        Row: {
+          ciudad: string
+          created_at: string
+          disciplina: string
+          id: string
+          instagram: string
+          mensaje: string
+          nombre: string
+          nombre_artistico: string
+          portfolio: string | null
+        }
+        Insert: {
+          ciudad: string
+          created_at?: string
+          disciplina: string
+          id?: string
+          instagram: string
+          mensaje: string
+          nombre: string
+          nombre_artistico: string
+          portfolio?: string | null
+        }
+        Update: {
+          ciudad?: string
+          created_at?: string
+          disciplina?: string
+          id?: string
+          instagram?: string
+          mensaje?: string
+          nombre?: string
+          nombre_artistico?: string
+          portfolio?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
