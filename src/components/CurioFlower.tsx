@@ -32,15 +32,21 @@ export function CurioFlower({ size = 540 }: CurioFlowerProps) {
       aria-label="Flor Curio · Navegación"
     >
       <style>{`
-        .petal-group { cursor: pointer; transition: filter 240ms ease; }
+        .petal-group { cursor: pointer; transition: filter 260ms ease, transform 260ms ease; }
         .petal-group text {
           font-family: 'Stinger Fit Trial', 'Stinger', Georgia, serif;
           font-weight: 700; font-size: 40px; letter-spacing: 3px;
           fill: #E8C547; text-anchor: middle; text-transform: uppercase;
-          transition: fill 240ms ease;
+          transition: fill 260ms ease, filter 260ms ease;
+          text-shadow: 0 1px 2px rgba(0,0,0,0.35);
         }
-        .petal-group:hover { filter: drop-shadow(0 0 18px rgba(212,164,55,0.9)) brightness(1.25); }
-        .petal-group:hover text { fill: #F8E27A; }
+        .petal-group:hover { filter: drop-shadow(0 0 22px rgba(212,164,55,0.85)) brightness(1.22) saturate(1.15); }
+        .petal-group:hover text { fill: #F8E27A; filter: drop-shadow(0 0 6px rgba(248,226,122,0.7)); }
+        .flower-shadow { filter: blur(28px); opacity: 0.35; }
+        .petal-vein { fill: none; stroke: #3d0f08; stroke-width: 1.8; stroke-linecap: round; opacity: 0.22; }
+        .petal-highlight { fill: none; stroke: #9B2B1C; stroke-width: 2.2; stroke-linecap: round; opacity: 0.18; }
+        .center-rim { fill: none; stroke: #C4A82A; stroke-width: 4; opacity: 0.6; }
+        .center-shine { fill: url(#centerShine); pointer-events: none; }
       `}</style>
 
       <g className="petal-group" onClick={go("postulate")} role="link" aria-label="Postulate">
