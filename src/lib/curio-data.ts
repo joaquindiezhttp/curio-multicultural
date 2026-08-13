@@ -81,12 +81,14 @@ export type GalleryItem = {
   edition: string;
   caption: string;
   hue: number;
+  image?: string;
 };
 
-export const GALLERY: GalleryItem[] = Array.from({ length: 12 }).map((_, i) => ({
-  id: `g${i}`,
-  type: i % 5 === 0 ? "video" : "photo",
-  edition: "Edición 01 · Buenos Aires",
-  caption: ["Graffiti en vivo", "Jam nocturno", "Hair tattoo", "Pasarela DIY", "Flash session", "Backstage"][i % 6],
-  hue: (i * 47) % 360,
-}));
+export const GALLERY: GalleryItem[] = [
+  { id: "g1", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "INSITU · Jam musical", hue: 47, image: "/__l5e/assets-v1/296ec062-b989-43ad-973a-a1bd336d1219/insitu-banner.jpg" },
+  { id: "g2", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "CHIKI & MOX · Graffiti en vivo", hue: 94, image: "/__l5e/assets-v1/f0c5f140-3d79-4565-87b3-01d58de410c9/mox-graffiti.jpg" },
+  { id: "g3", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "DAMO · Indumentaria", hue: 141, image: "/__l5e/assets-v1/3b4bb781-ed5d-4a03-bf31-b48cbb5d49a2/damo.jpg" },
+  { id: "g4", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "EVA.BELLONI · Detalle", hue: 188, image: "/__l5e/assets-v1/e788d703-5cf6-4f7d-aa46-b56b62f94902/eva-belloni-patch.jpg" },
+  { id: "g5", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "REAL.CLOTHING · Intervención", hue: 235, image: "/__l5e/assets-v1/27a21620-20de-42bb-a371-4eaba2a7c19b/real-clothing.jpg" },
+  { id: "g6", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "INSITU · En vivo", hue: 282, image: "/__l5e/assets-v1/d9c8a851-97b1-4880-8b34-401310342ef6/insitu-band.jpg" },
+];
