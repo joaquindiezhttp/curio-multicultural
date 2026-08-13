@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Minus, Plus, ShieldCheck, Ticket } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PageShell } from "@/components/Navbar";
+import { supabase } from "@/integrations/supabase/client";
+import { DEFAULT_EVENT_SETTINGS, type EventSettings } from "@/lib/event-settings";
 
 export const Route = createFileRoute("/entradas")({
   head: () => ({
@@ -16,9 +18,6 @@ export const Route = createFileRoute("/entradas")({
   component: Entradas,
 });
 
-const TICKET_PRICE = 8000;
-const MAX_TICKETS = 6;
-
 const formatPrice = (value: number) =>
   new Intl.NumberFormat("es-AR", {
     style: "currency",
@@ -27,12 +26,24 @@ const formatPrice = (value: number) =>
   }).format(value);
 
 function Entradas() {
+  const [settings, setSettings] = useState<EventSettings>(DEFAULT_EVENT_SETTINGS);
   const [quantity, setQuantity] = useState(1);
   const [names, setNames] = useState([""]);
-  const total = useMemo(() => quantity * TICKET_PRICE, [quantity]);
+  const total = useMemo(() => quantity * settings.ticket_price, [quantity, settings.ticket_price]);
+
+  useEffect(() => {
+    supabase
+      .from("event_settings")
+      .select("*")
+      .eq("id", 1)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data) setSettings(data as EventSettings);
+      });
+  }, []);
 
   const changeQuantity = (nextQuantity: number) => {
-    const safeQuantity = Math.min(MAX_TICKETS, Math.max(1, nextQuantity));
+    const safeQuantity = Math.min(settings.max_tickets_per_order, Math.max(1, nextQuantity));
     setQuantity(safeQuantity);
     setNames((current) =>
       Array.from({ length: safeQuantity }, (_, index) => current[index] ?? ""),
@@ -64,7 +75,7 @@ function Entradas() {
                   Próxima edición
                 </p>
                 <h2 className="mt-2 font-blackletter text-4xl text-gold md:text-5xl">
-                  CURIO · Edición 02
+                  {settings.title}
                 </h2>
               </div>
               <span className="border border-gold/60 px-3 py-2 font-display text-[10px] uppercase tracking-[0.22em] text-gold">
@@ -75,15 +86,15 @@ function Entradas() {
             <dl className="mt-8 grid grid-cols-2 gap-5 border-y border-border py-6 sm:grid-cols-3">
               <div>
                 <dt className="font-display text-[10px] uppercase tracking-[0.22em] text-foreground/50">Fecha</dt>
-                <dd className="mt-1 text-sm text-foreground">A confirmar</dd>
+                <dd className="mt-1 text-sm text-foreground">{settings.date_label}</dd>
               </div>
               <div>
                 <dt className="font-display text-[10px] uppercase tracking-[0.22em] text-foreground/50">Lugar</dt>
-                <dd className="mt-1 text-sm text-foreground">Buenos Aires</dd>
+                <dd className="mt-1 text-sm text-foreground">{settings.venue}</dd>
               </div>
               <div>
                 <dt className="font-display text-[10px] uppercase tracking-[0.22em] text-foreground/50">Entrada</dt>
-                <dd className="mt-1 text-sm text-foreground">{formatPrice(TICKET_PRICE)}</dd>
+                <dd className="mt-1 text-sm text-foreground">{formatPrice(settings.ticket_price)}</dd>
               </div>
             </dl>
 
@@ -93,7 +104,7 @@ function Entradas() {
                   <p className="font-display text-[10px] uppercase tracking-[0.25em] text-gold">
                     Cantidad de entradas
                   </p>
-                  <p className="mt-1 text-xs text-foreground/55">Máximo {MAX_TICKETS} por compra</p>
+                  <p className="mt-1 text-xs text-foreground/55">Máximo {settings.max_tickets_per_order} por compra</p>
                 </div>
                 <div className="flex items-center border border-border bg-background/40">
                   <button
@@ -111,7 +122,7 @@ function Entradas() {
                   <button
                     type="button"
                     onClick={() => changeQuantity(quantity + 1)}
-                    disabled={quantity === MAX_TICKETS}
+                    disabled={quantity === settings.max_tickets_per_order}
                     className="grid size-11 place-items-center text-gold transition-colors hover:bg-gold/10 disabled:cursor-not-allowed disabled:opacity-30"
                     aria-label="Agregar una entrada"
                   >
@@ -156,7 +167,7 @@ function Entradas() {
             </div>
             <div className="flex justify-between gap-4">
               <span className="text-foreground/65">Precio unitario</span>
-              <span>{formatPrice(TICKET_PRICE)}</span>
+              <span>{formatPrice(settings.ticket_price)}</span>
             </div>
             <div className="flex items-baseline justify-between gap-4 border-t border-border pt-5">
               <span className="font-display text-xs uppercase tracking-[0.2em] text-gold">Total</span>
@@ -164,13 +175,24 @@ function Entradas() {
             </div>
           </div>
 
-          <button
-            type="button"
-            disabled
-            className="w-full cursor-not-allowed border border-gold/40 bg-gold/10 px-5 py-4 font-display text-xs uppercase tracking-[0.24em] text-gold/60"
-          >
-            Pago disponible próximamente
-          </button>
+          {settings.tickets_enabled && settings.payment_url ? (
+            <a
+              href={settings.payment_url}
+              target="_blank"
+              rel="noreferrer"
+              className="block w-full border border-gold bg-gold px-5 py-4 text-center font-display text-xs uppercase tracking-[0.24em] text-background transition-colors hover:bg-wine hover:text-foreground"
+            >
+              Continuar al pago
+            </a>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="w-full cursor-not-allowed border border-gold/40 bg-gold/10 px-5 py-4 font-display text-xs uppercase tracking-[0.24em] text-gold/60"
+            >
+              Entradas disponibles próximamente
+            </button>
+          )}
 
           <div className="mt-5 flex items-start gap-3 text-xs leading-relaxed text-foreground/55">
             <ShieldCheck className="mt-0.5 shrink-0 text-wine" size={17} />

@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      event_settings: {
+        Row: {
+          date_label: string
+          id: number
+          max_tickets_per_order: number
+          payment_url: string | null
+          ticket_price: number
+          tickets_enabled: boolean
+          title: string
+          updated_at: string
+          venue: string
+        }
+        Insert: {
+          date_label?: string
+          id?: number
+          max_tickets_per_order?: number
+          payment_url?: string | null
+          ticket_price?: number
+          tickets_enabled?: boolean
+          title?: string
+          updated_at?: string
+          venue?: string
+        }
+        Update: {
+          date_label?: string
+          id?: number
+          max_tickets_per_order?: number
+          payment_url?: string | null
+          ticket_price?: number
+          tickets_enabled?: boolean
+          title?: string
+          updated_at?: string
+          venue?: string
+        }
+        Relationships: []
+      }
       postulaciones: {
         Row: {
           ciudad: string

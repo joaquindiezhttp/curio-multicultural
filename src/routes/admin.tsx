@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PageShell } from "@/components/Navbar";
 import { supabase } from "@/integrations/supabase/client";
+import { DEFAULT_EVENT_SETTINGS, type EventSettings } from "@/lib/event-settings";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -31,6 +32,9 @@ function Admin() {
   const [apps, setApps] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [settings, setSettings] = useState<EventSettings>(DEFAULT_EVENT_SETTINGS);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -47,13 +51,15 @@ function Admin() {
       }
       if (!active) return;
       setReady(true);
-      const { data: rows, error } = await supabase
-        .from("postulaciones")
-        .select("*")
-        .order("created_at", { ascending: false });
+      const [{ data: rows, error }, { data: eventSettings, error: settingsError }] = await Promise.all([
+        supabase.from("postulaciones").select("*").order("created_at", { ascending: false }),
+        supabase.from("event_settings").select("*").eq("id", 1).maybeSingle(),
+      ]);
       if (!active) return;
       if (error) setError(error.message);
       else setApps((rows ?? []) as Application[]);
+      if (settingsError) setError(settingsError.message);
+      else if (eventSettings) setSettings(eventSettings as EventSettings);
       setLoading(false);
     };
     init();
@@ -80,10 +86,39 @@ function Admin() {
     setApps((prev) => prev.filter((a) => a.id !== id));
   };
 
+  const saveSettings = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setSaving(true);
+    setSaved(false);
+    setError(null);
+    const payload = {
+      title: settings.title.trim(),
+      date_label: settings.date_label.trim(),
+      venue: settings.venue.trim(),
+      ticket_price: Math.max(0, Number(settings.ticket_price)),
+      max_tickets_per_order: Math.min(20, Math.max(1, Number(settings.max_tickets_per_order))),
+      tickets_enabled: settings.tickets_enabled,
+      payment_url: settings.payment_url?.trim() || null,
+      updated_at: new Date().toISOString(),
+    };
+    const { data, error } = await supabase
+      .from("event_settings")
+      .update(payload)
+      .eq("id", 1)
+      .select()
+      .single();
+    if (error) setError(error.message);
+    else {
+      setSettings(data as EventSettings);
+      setSaved(true);
+    }
+    setSaving(false);
+  };
+
   if (!ready) return <PageShell title="Panel" subtitle="Verificando sesión..."><div /></PageShell>;
 
   return (
-    <PageShell title="Panel" subtitle={`Postulaciones recibidas (${apps.length})`}>
+    <PageShell title="Panel" subtitle="Gestión privada de CURIO">
       <div className="flex justify-end mb-4">
         <button
           onClick={signOut}
@@ -93,6 +128,37 @@ function Admin() {
         </button>
       </div>
       {error && <p className="text-xs text-destructive mb-4">{error}</p>}
+      <form onSubmit={saveSettings} className="mb-10 border border-gold/50 bg-card/50 p-5 md:p-7">
+        <div className="mb-6">
+          <p className="font-display text-[10px] uppercase tracking-[0.25em] text-wine">Contenido público</p>
+          <h2 className="mt-1 font-blackletter text-3xl text-gold">Próximo evento y entradas</h2>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2">
+          <AdminField label="Nombre del evento" value={settings.title} onChange={(title) => setSettings({ ...settings, title })} />
+          <AdminField label="Fecha" value={settings.date_label} onChange={(date_label) => setSettings({ ...settings, date_label })} />
+          <AdminField label="Lugar" value={settings.venue} onChange={(venue) => setSettings({ ...settings, venue })} />
+          <AdminField label="Precio por entrada" type="number" value={String(settings.ticket_price)} onChange={(value) => setSettings({ ...settings, ticket_price: Number(value) })} />
+          <AdminField label="Máximo por compra" type="number" value={String(settings.max_tickets_per_order)} onChange={(value) => setSettings({ ...settings, max_tickets_per_order: Number(value) })} />
+          <AdminField label="Enlace de pago" type="url" value={settings.payment_url ?? ""} onChange={(payment_url) => setSettings({ ...settings, payment_url })} placeholder="https://..." />
+        </div>
+        <label className="mt-5 flex items-center gap-3 text-sm text-foreground/80">
+          <input
+            type="checkbox"
+            checked={settings.tickets_enabled}
+            onChange={(event) => setSettings({ ...settings, tickets_enabled: event.target.checked })}
+            className="size-4 accent-[var(--gold)]"
+          />
+          Habilitar el botón para sacar entradas
+        </label>
+        <div className="mt-6 flex items-center gap-4">
+          <button type="submit" disabled={saving} className="bg-gold px-5 py-3 font-display text-xs uppercase tracking-[0.2em] text-background disabled:opacity-50">
+            {saving ? "Guardando..." : "Guardar cambios"}
+          </button>
+          {saved && <span className="text-xs text-gold">Cambios publicados.</span>}
+        </div>
+      </form>
+
+      <h2 className="mb-4 font-blackletter text-3xl text-gold">Postulaciones ({apps.length})</h2>
       {loading ? (
         <p className="text-muted-foreground text-sm">Cargando...</p>
       ) : apps.length === 0 ? (
@@ -126,5 +192,34 @@ function Admin() {
         </div>
       )}
     </PageShell>
+  );
+}
+
+function AdminField({
+  label,
+  value,
+  onChange,
+  type = "text",
+  placeholder,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  type?: "text" | "number" | "url";
+  placeholder?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="font-display text-[10px] uppercase tracking-[0.2em] text-foreground/60">{label}</span>
+      <input
+        type={type}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
+        required={type !== "url"}
+        min={type === "number" ? 0 : undefined}
+        className="mt-2 w-full border border-border bg-background/50 px-3 py-3 text-sm outline-none focus:border-gold"
+      />
+    </label>
   );
 }
