@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 import { CurioMark } from "./CurioFlower";
 
 const LINKS = [
@@ -6,14 +8,16 @@ const LINKS = [
   { to: "/agenda", label: "Agenda" },
   { to: "/galeria", label: "Galería" },
   { to: "/postulate", label: "Postulate" },
-  { to: "/ciudades", label: "Ciudades" },
+  { to: "/entradas", label: "Entradas" },
 ] as const;
 
 export function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link to="/" className="flex items-center gap-3 group">
+        <Link to="/" className="flex items-center gap-3 group" onClick={() => setMobileOpen(false)}>
           <span className="transition-transform group-hover:rotate-45 duration-700">
             <CurioMark size={56} />
           </span>
@@ -31,7 +35,38 @@ export function Navbar() {
             </Link>
           ))}
         </nav>
+        <button
+          type="button"
+          className="grid size-11 place-items-center border border-border text-gold md:hidden"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
+          aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+          onClick={() => setMobileOpen((open) => !open)}
+        >
+          {mobileOpen ? <X size={21} /> : <Menu size={21} />}
+        </button>
       </div>
+      {mobileOpen ? (
+        <nav
+          id="mobile-navigation"
+          aria-label="Navegación principal"
+          className="border-t border-border/60 bg-background px-4 py-3 md:hidden"
+        >
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-2">
+            {LINKS.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setMobileOpen(false)}
+                className="border border-border px-3 py-3 text-left font-display text-xs uppercase tracking-[0.18em] text-foreground/80 transition-colors hover:border-gold hover:text-gold"
+                activeProps={{ className: "border-gold text-gold" }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </nav>
+      ) : null}
     </header>
   );
 }

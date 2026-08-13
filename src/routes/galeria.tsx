@@ -41,18 +41,28 @@ function Galeria() {
           <figure
             key={g.id}
             className="break-inside-avoid relative overflow-hidden border border-border group cursor-pointer hover:border-gold transition-colors"
-            style={{
-              height: 140 + (i % 4) * 60,
-              background: `linear-gradient(135deg, oklch(0.35 0.14 ${g.hue}), oklch(0.25 0.08 ${(g.hue + 60) % 360}))`,
-            }}
+            style={{ height: 220 + (i % 3) * 70 }}
           >
-            <div className="absolute inset-0 bg-background/40 group-hover:bg-background/10 transition-colors" />
+            {g.image ? (
+              <img
+                src={g.image}
+                alt={g.caption}
+                loading="lazy"
+                className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            ) : (
+              <div
+                className="size-full"
+                style={{ background: `linear-gradient(135deg, oklch(0.35 0.14 ${g.hue}), oklch(0.25 0.08 ${(g.hue + 60) % 360}))` }}
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent" />
             {g.type === "video" && (
               <span className="absolute top-2 right-2 text-[10px] uppercase tracking-widest font-display bg-wine text-foreground px-2 py-0.5">
                 ▶ Video
               </span>
             )}
-            <figcaption className="absolute bottom-0 left-0 right-0 p-3 text-xs">
+            <figcaption className="absolute bottom-0 left-0 right-0 p-4 text-left text-xs">
               <p className="font-display tracking-widest uppercase text-gold">{g.caption}</p>
               <p className="text-foreground/70 text-[10px] mt-0.5">{g.edition}</p>
             </figcaption>

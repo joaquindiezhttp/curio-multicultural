@@ -40,6 +40,11 @@ function Admin() {
         navigate({ to: "/auth" });
         return;
       }
+      if (data.session.user.app_metadata.role !== "admin") {
+        await supabase.auth.signOut();
+        navigate({ to: "/auth" });
+        return;
+      }
       if (!active) return;
       setReady(true);
       const { data: rows, error } = await supabase
