@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { PageShell } from "@/components/Navbar";
 import { DISCIPLINES } from "@/lib/curio-data";
 import { supabase } from "@/integrations/supabase/client";
@@ -43,7 +43,7 @@ function Postulate() {
     });
     setSubmitting(false);
     if (error) {
-      setError(error.message);
+      setError("No pudimos enviar tu postulación. Revisá tu conexión e intentá de nuevo, o escribinos por Instagram.");
       return;
     }
     setDone(true);
@@ -80,13 +80,13 @@ function Postulate() {
           <select
             value={form.disciplina}
             onChange={(e) => setForm({ ...form, disciplina: e.target.value })}
-            className="bg-input border border-border px-3 py-2 text-sm focus:border-gold outline-none"
+            className="bg-input border border-border px-3 py-3 text-base focus:border-gold outline-none"
           >
             {DISCIPLINES.map((d) => <option key={d}>{d}</option>)}
           </select>
         </div>
         <Field label="Ciudad" value={form.ciudad} onChange={(v) => setForm({ ...form, ciudad: v })} required />
-        <Field label="Instagram" value={form.instagram} onChange={(v) => setForm({ ...form, instagram: v })} placeholder="@tu.usuario" required />
+        <Field label="Instagram" value={form.instagram} onChange={(v) => setForm({ ...form, instagram: v })} onBlur={() => setForm((f) => (f.instagram && !f.instagram.startsWith("@") ? { ...f, instagram: "@" + f.instagram } : f))} placeholder="@tu.usuario" required />
         <Field label="Portfolio (link)" value={form.portfolio} onChange={(v) => setForm({ ...form, portfolio: v })} placeholder="https://..." />
         <div className="md:col-span-2 flex flex-col gap-2">
           <label className="text-xs uppercase tracking-widest font-display text-gold/80">Mensaje</label>
@@ -95,12 +95,12 @@ function Postulate() {
             onChange={(e) => setForm({ ...form, mensaje: e.target.value })}
             rows={5}
             maxLength={1000}
-            className="bg-input border border-border px-3 py-2 text-sm focus:border-gold outline-none resize-none"
+            className="bg-input border border-border px-3 py-3 text-base focus:border-gold outline-none resize-none"
             placeholder="Contanos qué traés a Curio..."
             required
           />
         </div>
-        {error && <p className="md:col-span-2 text-xs text-destructive">{error}</p>}
+        {error && <p role="alert" className="md:col-span-2 border border-destructive/60 bg-destructive/10 px-3 py-2 text-sm text-foreground">{error}</p>}
         <div className="md:col-span-2 flex items-center justify-end gap-4 pt-2">
           <button
             type="submit"
@@ -116,18 +116,21 @@ function Postulate() {
 }
 
 function Field({
-  label, value, onChange, required, placeholder,
-}: { label: string; value: string; onChange: (v: string) => void; required?: boolean; placeholder?: string }) {
+  label, value, onChange, onBlur, required, placeholder,
+}: { label: string; value: string; onChange: (v: string) => void; onBlur?: () => void; required?: boolean; placeholder?: string }) {
+  const id = useId();
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-xs uppercase tracking-widest font-display text-gold/80">{label}</label>
+      <label htmlFor={id} className="text-xs uppercase tracking-widest font-display text-gold/80">{label}</label>
       <input
+        id={id}
+        onBlur={onBlur}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         required={required}
         maxLength={200}
         placeholder={placeholder}
-        className="bg-input border border-border px-3 py-2 text-sm focus:border-gold outline-none"
+        className="bg-input border border-border px-3 py-3 text-base focus:border-gold outline-none"
       />
     </div>
   );

@@ -35,7 +35,7 @@ export function CurioFlower({ size = 540 }: CurioFlowerProps) {
         .petal-group { cursor: pointer; transition: filter 240ms ease; }
         .petal-group text {
           font-family: 'Helvetica Neue Condensed', 'Barlow Condensed', 'Arial Narrow', sans-serif;
-          font-weight: 700; font-size: 40px; letter-spacing: 3px;
+          font-weight: 700; font-size: 52px; letter-spacing: 2px;
           fill: #B8A632; text-anchor: middle; text-transform: uppercase;
           transition: fill 240ms ease;
         }

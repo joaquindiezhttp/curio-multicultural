@@ -103,7 +103,9 @@ export function PageShell({
           @{EVENT.instagram}
         </a>
         <span className="mx-2">·</span>
-        CURIO · MULTICULTURAL EVENTS · {new Date().getFullYear()}
+        <Link to="/privacidad" className="hover:text-gold">Privacidad</Link>
+        <span className="mx-2">·</span>
+        CURIO · {new Date().getFullYear()}
       </footer>
     </div>
   );

@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 export default function CurioAgent() {
+  const [open, setOpen] = useState(false);
   return (
     <section className="w-full max-w-3xl mx-auto mt-16 mb-8 px-2">
       <div className="flex flex-col items-center text-center mb-5">
@@ -74,7 +77,8 @@ export default function CurioAgent() {
             </span>
           </div>
 
-          <iframe
+          {open ? (
+            <iframe
             src="https://my-agent-sorta10.vercel.app/"
             title="Chat de Curio"
             style={{
@@ -85,6 +89,20 @@ export default function CurioAgent() {
               background: "var(--moss)",
             }}
           />
+          ) : (
+            <div className="flex flex-col items-center gap-4 px-6 py-12 text-center">
+              <p className="max-w-sm text-sm text-foreground/75">
+                Preguntale a Curio por el evento, los artistas o cómo sumarte.
+              </p>
+              <button
+                type="button"
+                onClick={() => setOpen(true)}
+                className="bg-gold px-6 py-3 font-display text-xs uppercase tracking-[0.22em] text-background transition-colors hover:bg-wine hover:text-foreground"
+              >
+                Abrir chat
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

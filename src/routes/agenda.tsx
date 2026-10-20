@@ -29,7 +29,7 @@ function Agenda() {
     >
       {/* Datos del evento */}
       <section className="border border-gold/50 bg-card/40 p-6 md:p-8 mb-10">
-        <p className="font-display text-[10px] tracking-[0.3em] text-gold uppercase">
+        <p className="font-display text-xs tracking-[0.3em] text-gold uppercase">
           Información del evento
         </p>
         <h2 className="font-heading text-4xl md:text-5xl text-oliva mt-2">
@@ -41,7 +41,7 @@ function Agenda() {
         <dl className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
           {EVENT_INFO.map((i) => (
             <div key={i.label} className="border-l-2 border-gold/60 pl-3">
-              <dt className="font-display text-[10px] tracking-[0.25em] uppercase text-foreground/60">
+              <dt className="font-display text-xs tracking-[0.25em] uppercase text-foreground/75">
                 {i.label}
               </dt>
               <dd className="text-base text-foreground mt-1">{i.value}</dd>
@@ -50,8 +50,16 @@ function Agenda() {
         </dl>
       </section>
 
+      <section className="mb-10 border border-border bg-card/30 p-6 md:p-8">
+        <p className="font-display text-xs tracking-[0.3em] text-mostaza uppercase">Dónde</p>
+        <h3 className="font-heading text-3xl text-oliva mt-2">{EVENT.city}</h3>
+        <p className="mt-3 max-w-xl text-sm text-foreground/75">
+          {EVENT.venueNote} Activá las notificaciones de @{EVENT.instagram} para recibir la dirección apenas se publique.
+        </p>
+      </section>
+
       <section className="border border-dashed border-gold/50 bg-card/30 p-8 md:p-10 text-center">
-        <p className="font-display text-[10px] tracking-[0.3em] text-mostaza uppercase">Line-up</p>
+        <p className="font-display text-xs tracking-[0.3em] text-mostaza uppercase">Line-up</p>
         <h3 className="font-heading text-3xl md:text-4xl text-oliva mt-2">Se viene el line-up</h3>
         <p className="mt-3 mx-auto max-w-xl text-sm text-foreground/70">
           Estamos armando la grilla del Vol. 2. Los artistas se anuncian en Instagram; seguinos para enterarte primero.

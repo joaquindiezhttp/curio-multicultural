@@ -29,7 +29,7 @@ export function Countdown({ target }: { target: string }) {
       {parts.map((p) => (
         <div key={p.label}>
           <div className="font-heading text-4xl text-gold md:text-5xl">{String(p.value).padStart(2, "0")}</div>
-          <div className="font-display text-[10px] uppercase tracking-[0.25em] text-foreground/50">{p.label}</div>
+          <div className="font-display text-xs uppercase tracking-[0.25em] text-foreground/70">{p.label}</div>
         </div>
       ))}
     </div>

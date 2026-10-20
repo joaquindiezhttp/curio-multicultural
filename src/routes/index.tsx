@@ -69,7 +69,7 @@ function Home() {
 
         <section className="mx-auto mt-16 grid max-w-5xl gap-px border border-gold/35 bg-gold/20 text-left md:grid-cols-[1.2fr_0.8fr]">
           <div className="bg-background/95 p-6 md:p-10">
-            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-gold">Próxima edición</p>
+            <p className="font-display text-xs uppercase tracking-[0.35em] text-gold">Próxima edición</p>
             <h2 className="mt-3 max-w-xl font-heading text-4xl leading-none text-oliva md:text-6xl">
               {EVENT.name}
             </h2>
@@ -82,14 +82,17 @@ function Home() {
               <Link to="/entradas" className="bg-gold px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-background transition-colors hover:bg-wine hover:text-foreground">
                 Info y entradas
               </Link>
-              <Link to="/postulate" className="border border-gold px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-gold transition-colors hover:bg-gold hover:text-background">
+              <a href={EVENT.instagramUrl} target="_blank" rel="noreferrer" className="border border-gold px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-gold transition-colors hover:bg-gold hover:text-background">
+                Seguinos @{EVENT.instagram}
+              </a>
+              <Link to="/postulate" className="px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-foreground/70 underline-offset-4 transition-colors hover:text-gold hover:underline">
                 Traé tu arte
               </Link>
             </div>
           </div>
           <aside className="grid content-between gap-8 bg-card/95 p-6 md:p-10" aria-label="Datos de la edición anterior">
             <div>
-              <p className="font-display text-[10px] uppercase tracking-[0.3em] text-foreground/50">Edición 01 · Archivo</p>
+              <p className="font-display text-xs uppercase tracking-[0.3em] text-foreground/70">Edición 01 · Archivo</p>
               <p className="mt-2 font-heading text-4xl text-oliva">Buenos Aires</p>
               <p className="mt-2 text-sm text-foreground/65">16 de mayo de 2026 · Núñez</p>
             </div>

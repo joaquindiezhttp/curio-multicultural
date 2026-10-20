@@ -122,7 +122,7 @@ function Admin() {
       <div className="flex justify-end mb-4">
         <button
           onClick={signOut}
-          className="text-xs font-display uppercase tracking-widest text-foreground/60 hover:text-gold border border-border px-3 py-1"
+          className="text-xs font-display uppercase tracking-widest text-foreground/75 hover:text-gold border border-border px-3 py-1"
         >
           Cerrar sesión
         </button>
@@ -130,7 +130,7 @@ function Admin() {
       {error && <p className="text-xs text-destructive mb-4">{error}</p>}
       <form onSubmit={saveSettings} className="mb-10 border border-gold/50 bg-card/50 p-5 md:p-7">
         <div className="mb-6">
-          <p className="font-display text-[10px] uppercase tracking-[0.25em] text-mostaza">Contenido público</p>
+          <p className="font-display text-xs uppercase tracking-[0.25em] text-mostaza">Contenido público</p>
           <h2 className="mt-1 font-heading text-3xl text-oliva">Próximo evento y entradas</h2>
         </div>
         <div className="grid gap-5 md:grid-cols-2">
@@ -169,7 +169,7 @@ function Admin() {
             <div key={a.id} className="border border-border bg-card/50 p-5">
               <div className="flex justify-between items-start gap-4 flex-wrap">
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-gold/80 font-display">{a.disciplina} · {a.ciudad}</p>
+                  <p className="text-xs uppercase tracking-widest text-gold/80 font-display">{a.disciplina} · {a.ciudad}</p>
                   <h3 className="font-heading text-2xl text-oliva mt-1">{a.nombre_artistico}</h3>
                   <p className="text-sm text-foreground/80">{a.nombre} · {a.instagram}</p>
                 </div>
@@ -186,7 +186,7 @@ function Admin() {
                 </a>
               )}
               <p className="text-sm mt-3 text-foreground/70 whitespace-pre-wrap">{a.mensaje}</p>
-              <p className="text-[10px] mt-3 text-muted-foreground">{new Date(a.created_at).toLocaleString("es")}</p>
+              <p className="text-xs mt-3 text-muted-foreground">{new Date(a.created_at).toLocaleString("es")}</p>
             </div>
           ))}
         </div>
@@ -210,7 +210,7 @@ function AdminField({
 }) {
   return (
     <label className="block">
-      <span className="font-display text-[10px] uppercase tracking-[0.2em] text-foreground/60">{label}</span>
+      <span className="font-display text-xs uppercase tracking-[0.2em] text-foreground/75">{label}</span>
       <input
         type={type}
         value={value}

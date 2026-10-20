@@ -26,13 +26,13 @@ function Entradas() {
   return (
     <PageShell title="Entradas" subtitle="Info para sumarte a la próxima edición de CURIO.">
       <section className="relative overflow-hidden border border-gold/60 bg-card/40 p-6 md:p-10">
-        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-mostaza">Próxima edición</p>
+        <p className="font-display text-xs uppercase tracking-[0.3em] text-mostaza">Próxima edición</p>
         <h2 className="mt-2 font-heading text-4xl text-oliva md:text-6xl">{EVENT.name}</h2>
 
         <dl className="mt-8 grid grid-cols-2 gap-5 border-y border-border py-6 md:grid-cols-4">
           {INFO.map((i) => (
             <div key={i.label} className="border-l-2 border-gold/60 pl-3">
-              <dt className="font-display text-[10px] uppercase tracking-[0.22em] text-foreground/50">{i.label}</dt>
+              <dt className="font-display text-xs uppercase tracking-[0.22em] text-foreground/70">{i.label}</dt>
               <dd className="mt-1 text-base text-foreground">{i.value}</dd>
             </div>
           ))}

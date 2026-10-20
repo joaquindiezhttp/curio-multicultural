@@ -20,14 +20,14 @@ function Artistas() {
   return (
     <PageShell
       title="Artistas"
-      subtitle="Voces, manos y máquinas que son parte de la familia Curio."
+      subtitle="Edición 01 · Voces, manos y máquinas de la familia Curio. El line-up del Vol. 2 se anuncia en Instagram."
     >
-      <div className="flex flex-wrap gap-2 mb-8">
+      <div className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-2 md:mx-0 md:flex-wrap md:overflow-visible md:px-0">
         {(["Todos", ...DISCIPLINES] as const).map((d) => (
           <button
             key={d}
             onClick={() => setFilter(d)}
-            className={`px-3 py-1.5 text-xs uppercase tracking-widest font-display border transition-all ${
+            className={`shrink-0 whitespace-nowrap px-3 py-2 text-xs uppercase tracking-widest font-display border transition-all ${
               filter === d
                 ? "bg-gold text-background border-gold"
                 : "border-border text-foreground/70 hover:border-gold hover:text-gold"
@@ -54,7 +54,12 @@ function Artistas() {
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent" />
               </div>
             ) : (
-              <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-wine/20 blur-2xl group-hover:bg-gold/20 transition-colors" />
+              <img
+                src="/curio-flower-web.svg"
+                alt=""
+                aria-hidden="true"
+                className="absolute right-4 top-4 h-16 w-16 opacity-30 transition-all duration-500 group-hover:rotate-45 group-hover:opacity-60"
+              />
             )}
             <div className="relative p-6">
               <p className="text-xs uppercase tracking-[0.25em] text-gold/80 font-display">

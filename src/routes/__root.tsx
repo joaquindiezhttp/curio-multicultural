@@ -72,6 +72,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#0b0a0a" },
       { title: "CURIO Vol. 2 · 5 de diciembre" },
       { name: "description", content: "CURIO Vol. 2 · Sábado 5 de diciembre · Núñez, Buenos Aires. Música, arte en vivo e indumentaria." },
       { name: "author", content: "CURIO" },
@@ -83,6 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:description", content: "CURIO Vol. 2 · Sábado 5 de diciembre · Núñez, Buenos Aires. Música, arte en vivo e indumentaria." },
     ],
     links: [
+      { rel: "icon", href: "/curio-flower-web.svg", type: "image/svg+xml" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -103,7 +105,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <HeadContent />
       </head>

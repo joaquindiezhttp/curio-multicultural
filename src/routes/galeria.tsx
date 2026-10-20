@@ -20,13 +20,13 @@ function Galeria() {
   const items = edition === "Todas" ? GALLERY : GALLERY.filter((g) => g.edition === edition);
 
   return (
-    <PageShell title="Galería" subtitle="Memoria visual de cada noche Curio.">
-      <div className="flex flex-wrap gap-2 mb-8">
+    <PageShell title="Galería" subtitle="Memoria visual de la Edición 01.">
+      <div className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-2 md:mx-0 md:flex-wrap md:overflow-visible md:px-0">
         {EDITIONS.map((e) => (
           <button
             key={e}
             onClick={() => setEdition(e)}
-            className={`px-3 py-1.5 text-xs uppercase tracking-widest font-display border transition-all ${
+            className={`shrink-0 whitespace-nowrap px-3 py-2 text-xs uppercase tracking-widest font-display border transition-all ${
               edition === e
                 ? "bg-gold text-background border-gold"
                 : "border-border text-foreground/70 hover:border-gold hover:text-gold"
@@ -58,13 +58,13 @@ function Galeria() {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent" />
             {g.type === "video" && (
-              <span className="absolute top-2 right-2 text-[10px] uppercase tracking-widest font-display bg-wine text-foreground px-2 py-0.5">
+              <span className="absolute top-2 right-2 text-xs uppercase tracking-widest font-display bg-wine text-foreground px-2 py-0.5">
                 ▶ Video
               </span>
             )}
             <figcaption className="absolute bottom-0 left-0 right-0 p-4 text-left text-xs">
               <p className="font-display tracking-widest uppercase text-gold">{g.caption}</p>
-              <p className="text-foreground/70 text-[10px] mt-0.5">{g.edition}</p>
+              <p className="text-foreground/70 text-xs mt-0.5">{g.edition}</p>
             </figcaption>
           </figure>
         ))}
