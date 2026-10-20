@@ -1,3 +1,4 @@
+import { EVENT } from "@/lib/event";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
@@ -21,7 +22,7 @@ export function Navbar() {
           <span className="transition-transform group-hover:rotate-45 duration-700">
             <CurioMark size={56} />
           </span>
-          <span className="font-blackletter text-2xl text-gold tracking-wider">CURIO</span>
+          <span className="font-heading text-2xl text-oliva tracking-wider">CURIO</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           {LINKS.map((l) => (
@@ -85,7 +86,7 @@ export function PageShell({
       <Navbar />
       <main className="mx-auto max-w-6xl px-4 py-10 md:py-16 animate-fade-up">
         <div className="mb-10 md:mb-14">
-          <h1 className="font-blackletter text-5xl md:text-7xl text-gold leading-none">
+          <h1 className="font-heading text-5xl md:text-7xl text-oliva leading-none">
             {title}
           </h1>
           {subtitle && (
@@ -98,6 +99,10 @@ export function PageShell({
         {children}
       </main>
       <footer className="border-t border-border/60 py-8 mt-16 text-center text-xs text-muted-foreground font-display tracking-widest">
+        <a href={EVENT.instagramUrl} target="_blank" rel="noreferrer" className="hover:text-gold">
+          @{EVENT.instagram}
+        </a>
+        <span className="mx-2">·</span>
         CURIO · MULTICULTURAL EVENTS · {new Date().getFullYear()}
       </footer>
     </div>

@@ -14,15 +14,11 @@ export default function CurioAgent() {
           Oráculo · Conversá con
         </span>
         <h2
-          className="font-blackletter mt-2 leading-none"
+          className="font-heading mt-2 leading-none"
           style={{
-            color: "#8a8a1f",
-            backgroundImage: "linear-gradient(180deg, #a8a82a 0%, #6b6b15 60%, #3d4a10 100%)",
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            fontSize: "clamp(2rem, 5vw, 3rem)",
-            textShadow: "0 0 24px rgba(138,138,31,0.25)",
+            color: "var(--oliva)",
+                                                            fontSize: "clamp(2rem, 5vw, 3rem)",
+            textShadow: "3px 3px 0 var(--musgo)",
           }}
         >
           Curio
@@ -35,7 +31,7 @@ export default function CurioAgent() {
           background:
             "linear-gradient(135deg, rgba(212,164,55,0.6), rgba(107,26,26,0.45) 50%, rgba(212,164,55,0.5))",
           boxShadow:
-            "0 30px 80px -30px rgba(0,0,0,0.7), 0 0 60px -20px rgba(212,164,55,0.25)",
+            "0 30px 80px -30px rgba(0,0,0,0.7), 0 0 60px -20px rgba(184,166,50,0.25)",
         }}
       >
         <div
@@ -71,7 +67,7 @@ export default function CurioAgent() {
               </span>
             </div>
             <span
-              className="font-blackletter"
+              className="font-heading"
               style={{ color: "var(--gold)", opacity: 0.7, fontSize: "0.9rem" }}
             >
               ✦

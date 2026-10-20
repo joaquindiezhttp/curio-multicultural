@@ -24,7 +24,7 @@ export const Route = createFileRoute("/privacidad")({
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mb-10">
-      <h2 className="font-blackletter text-3xl text-gold mb-3">{title}</h2>
+      <h2 className="font-heading text-3xl text-oliva mb-3">{title}</h2>
       <div className="space-y-3 text-foreground/85 text-sm md:text-base leading-relaxed">
         {children}
       </div>

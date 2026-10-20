@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CurioFlower } from "@/components/CurioFlower";
-import curioTitleAsset from "@/assets/curio-title.png.asset.json";
+import { EVENT } from "@/lib/event";
+import { Countdown } from "@/components/Countdown";
 import CurioAgent from "@/components/CurioAgent";
 
 export const Route = createFileRoute("/")({
@@ -22,12 +23,12 @@ function Home() {
       <header className="mx-auto flex w-full max-w-6xl flex-col items-center">
         <h1 className="leading-none m-0">
           <img
-            src={curioTitleAsset.url}
+            src={"/img/curio-title.png"}
             alt="CURIO"
             className="w-auto"
             style={{
               height: "clamp(4rem, 14vw, 9rem)",
-              filter: "drop-shadow(0 0 24px rgba(212,164,55,0.25))",
+              filter: "drop-shadow(0 0 24px rgba(184,166,50,0.25))",
             }}
           />
         </h1>
@@ -68,32 +69,35 @@ function Home() {
 
         <section className="mx-auto mt-16 grid max-w-5xl gap-px border border-gold/35 bg-gold/20 text-left md:grid-cols-[1.2fr_0.8fr]">
           <div className="bg-background/95 p-6 md:p-10">
-            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-gold">El jardín sigue creciendo</p>
-            <h2 className="mt-3 max-w-xl font-blackletter text-4xl leading-none text-gold md:text-6xl">
-              Una noche. Cinco mundos. Una comunidad.
+            <p className="font-display text-[10px] uppercase tracking-[0.35em] text-gold">Próxima edición</p>
+            <h2 className="mt-3 max-w-xl font-heading text-4xl leading-none text-oliva md:text-6xl">
+              {EVENT.name}
             </h2>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-foreground/70 md:text-base">
-              CURIO reúne música, arte urbano, indumentaria, cuerpo y palabra en experiencias vivas. La primera edición floreció en Buenos Aires; la próxima se está gestando.
+            <p className="mt-4 font-display text-lg uppercase tracking-[0.18em] text-foreground md:text-2xl">
+              {EVENT.dateLabel} · {EVENT.doors} a {EVENT.close} h
             </p>
+            <p className="mt-2 text-sm text-foreground/70">{EVENT.city} · {EVENT.venueNote}</p>
+            <Countdown target={EVENT.startsAt} />
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link to="/galeria" className="bg-gold px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-background transition-colors hover:bg-wine hover:text-foreground">
-                Ver edición 01
+              <Link to="/entradas" className="bg-gold px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-background transition-colors hover:bg-wine hover:text-foreground">
+                Info y entradas
               </Link>
               <Link to="/postulate" className="border border-gold px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-gold transition-colors hover:bg-gold hover:text-background">
                 Traé tu arte
               </Link>
             </div>
           </div>
-          <aside className="grid content-between gap-8 bg-card/95 p-6 md:p-10" aria-label="Datos de la primera edición">
+          <aside className="grid content-between gap-8 bg-card/95 p-6 md:p-10" aria-label="Datos de la edición anterior">
             <div>
               <p className="font-display text-[10px] uppercase tracking-[0.3em] text-foreground/50">Edición 01 · Archivo</p>
-              <p className="mt-2 font-blackletter text-4xl text-gold">Buenos Aires</p>
+              <p className="mt-2 font-heading text-4xl text-oliva">Buenos Aires</p>
               <p className="mt-2 text-sm text-foreground/65">16 de mayo de 2026 · Núñez</p>
             </div>
-            <dl className="grid grid-cols-2 gap-4 border-t border-border pt-6">
-              <div><dt className="font-display text-[9px] uppercase tracking-widest text-foreground/45">Artistas</dt><dd className="mt-1 text-2xl text-gold">10+</dd></div>
-              <div><dt className="font-display text-[9px] uppercase tracking-widest text-foreground/45">Disciplinas</dt><dd className="mt-1 text-2xl text-gold">8</dd></div>
-            </dl>
+            <div className="border-t border-border pt-6">
+              <Link to="/galeria" className="font-display text-xs uppercase tracking-[0.22em] text-gold hover:text-foreground">
+                Ver galería Vol. 1 →
+              </Link>
+            </div>
           </aside>
         </section>
 

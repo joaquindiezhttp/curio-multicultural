@@ -53,7 +53,7 @@ function Postulate() {
     return (
       <PageShell title="Recibido" subtitle="Tu postulación llegó al jardín.">
         <div className="border border-gold/60 bg-card/50 p-8 text-center max-w-xl mx-auto">
-          <p className="font-blackletter text-4xl text-gold">✦ Gracias ✦</p>
+          <p className="font-heading text-4xl text-oliva">✦ Gracias ✦</p>
           <p className="mt-4 text-foreground/80">
             Vamos a revisar tu propuesta y te escribimos por Instagram si entrás en la próxima edición.
           </p>

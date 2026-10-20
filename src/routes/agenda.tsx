@@ -1,42 +1,42 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/Navbar";
-import { ARTISTS, DISCIPLINES, type Discipline } from "@/lib/curio-data";
+import { EVENT } from "@/lib/event";
 
 export const Route = createFileRoute("/agenda")({
   head: () => ({
     meta: [
       { title: "Agenda · CURIO" },
-      { name: "description", content: "Edición 01 · 16 de mayo 2026 · Buenos Aires (Núñez)." },
+      { name: "description", content: "CURIO Vol. 2 · Sábado 5 de diciembre 2026 · Buenos Aires (Núñez)." },
     ],
   }),
   component: Agenda,
 });
 
 const EVENT_INFO = [
-  { label: "Edición", value: "01" },
-  { label: "Fecha", value: "16 de mayo 2026" },
-  { label: "Ciudad", value: "Buenos Aires · Núñez" },
-  { label: "Puertas", value: "17:00" },
-  { label: "Cierre", value: "02:00" },
-  { label: "Entrada", value: "$8.000" },
+  { label: "Edición", value: EVENT.edition },
+  { label: "Fecha", value: EVENT.dateLabel },
+  { label: "Ciudad", value: EVENT.city },
+  { label: "Puertas", value: `${EVENT.doors} h` },
+  { label: "Cierre", value: `${EVENT.close} h` },
+  { label: "Entrada", value: EVENT.price ?? "Próximamente" },
 ];
 
 function Agenda() {
   return (
     <PageShell
       title="Agenda"
-      subtitle="Edición 01 · Buenos Aires · una noche, cinco mundos."
+      subtitle="Vol. 2 · Buenos Aires · una noche, cinco mundos."
     >
       {/* Datos del evento */}
       <section className="border border-gold/50 bg-card/40 p-6 md:p-8 mb-10">
         <p className="font-display text-[10px] tracking-[0.3em] text-gold uppercase">
           Información del evento
         </p>
-        <h2 className="font-blackletter text-4xl md:text-5xl text-gold mt-2">
-          16 · Mayo · 2026
+        <h2 className="font-heading text-4xl md:text-5xl text-oliva mt-2">
+          {EVENT.dateShort}
         </h2>
         <p className="mt-2 text-sm text-foreground/80">
-          Buenos Aires · Núñez. La dirección exacta se confirma por nuestras redes los días previos.
+          {EVENT.city}. {EVENT.venueNote}
         </p>
         <dl className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
           {EVENT_INFO.map((i) => (
@@ -50,46 +50,19 @@ function Agenda() {
         </dl>
       </section>
 
-      {/* Disciplinas y artistas que participan */}
-      <section>
-        <p className="font-display text-[10px] tracking-[0.3em] text-wine uppercase">
-          En esta edición
+      <section className="border border-dashed border-gold/50 bg-card/30 p-8 md:p-10 text-center">
+        <p className="font-display text-[10px] tracking-[0.3em] text-mostaza uppercase">Line-up</p>
+        <h3 className="font-heading text-3xl md:text-4xl text-oliva mt-2">Se viene el line-up</h3>
+        <p className="mt-3 mx-auto max-w-xl text-sm text-foreground/70">
+          Estamos armando la grilla del Vol. 2. Los artistas se anuncian en Instagram; seguinos para enterarte primero.
         </p>
-        <h3 className="font-blackletter text-3xl text-gold mt-2 mb-6">
-          Disciplinas & artistas
-        </h3>
-        <p className="text-sm text-foreground/70 mb-8 max-w-2xl">
-          El cronograma fluye durante la noche, sin horarios fijos por actividad. Estas son las disciplinas y los artistas que toman parte de la edición.
-        </p>
-
-        <div className="space-y-6">
-          {DISCIPLINES.map((d) => {
-            const items = ARTISTS.filter((a) => a.discipline === d);
-            if (items.length === 0) return null;
-            return (
-              <div key={d} className="border border-border bg-card/30 p-5">
-                <div className="flex items-center justify-between flex-wrap gap-2">
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-wine font-display px-2 py-1 border border-wine/60">
-                    {d as Discipline}
-                  </span>
-                  <span className="text-xs font-display tracking-widest uppercase text-gold/70">
-                    {items.length} {items.length === 1 ? "artista" : "artistas"}
-                  </span>
-                </div>
-                <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
-                  {items.map((a) => (
-                    <li key={a.id} className="flex items-baseline gap-3">
-                      <span className="text-gold">✦</span>
-                      <span>
-                        <span className="font-medium">{a.name}</span>
-                        <span className="text-foreground/60 text-sm"> · {a.act}</span>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <a href={EVENT.instagramUrl} target="_blank" rel="noreferrer" className="bg-gold px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-background transition-colors hover:bg-wine hover:text-foreground">
+            @{EVENT.instagram}
+          </a>
+          <Link to="/artistas" className="border border-gold px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-gold transition-colors hover:bg-gold hover:text-background">
+            Artistas Vol. 1
+          </Link>
         </div>
       </section>
     </PageShell>

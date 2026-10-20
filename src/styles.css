@@ -2,22 +2,6 @@
 @source "../src";
 @import "tw-animate-css";
 
-@font-face {
-  font-family: "Stinger Fit Trial";
-  src: url("/fonts/StingerFitTrial-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Darkcastle PERSONAL USE";
-  src: url("/fonts/Darkcastle-PersonalUse.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 
 
 @custom-variant dark (&:is(.dark *));
@@ -49,42 +33,56 @@
   --color-gold: var(--gold);
   --color-wine: var(--wine);
   --color-moss: var(--moss);
-  --font-display: "Pirata One", "UnifrakturCook", serif;
-  --font-blackletter: "UnifrakturCook", "Pirata One", serif;
-  --font-hero: "Abril Fatface", "Playfair Display", serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --color-oliva: var(--oliva);
+  --color-mostaza: var(--mostaza);
+  --color-hueso: var(--hueso);
+  --color-tierra: var(--tierra);
+  /* Manual de marca: titulos Superclarendon, datos Helvetica Neue Condensed, texto Helvetica Neue */
+  --font-heading: "Superclarendon", "Alfa Slab One", "Rockwell", serif;
+  --font-serif: var(--font-heading);
+  --font-display: "Helvetica Neue Condensed", "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, "Inter", Arial, sans-serif;
 }
 
 :root {
-  --radius: 0.5rem;
-  /* very dark swamp green, near black */
-  --background: oklch(0.18 0.025 145);
-  --foreground: oklch(0.94 0.04 90);
-  --card: oklch(0.21 0.025 145);
-  --card-foreground: oklch(0.94 0.04 90);
-  --popover: oklch(0.21 0.025 145);
-  --popover-foreground: oklch(0.94 0.04 90);
-  --primary: oklch(0.78 0.14 85); /* gold */
-  --primary-foreground: oklch(0.16 0.02 145);
-  --secondary: oklch(0.32 0.13 25); /* wine */
-  --secondary-foreground: oklch(0.95 0.03 90);
-  --muted: oklch(0.24 0.02 145);
-  --muted-foreground: oklch(0.72 0.03 90);
-  --accent: oklch(0.32 0.13 25);
-  --accent-foreground: oklch(0.95 0.03 90);
-  --destructive: oklch(0.5 0.2 25);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.28 0.03 145);
-  --input: oklch(0.24 0.025 145);
-  --ring: oklch(0.78 0.14 85);
-  --gold: #d4a437;
-  --wine: #6b1a1a;
-  --moss: #162016;
+  --radius: 0.25rem;
+  /* Paleta del manual de marca */
+  --negro: #0b0a0a;
+  --tierra: #4d3900;
+  --oliva: #7f8400;
+  --musgo: #154514;
+  --bordo: #5b170d;
+  --mostaza: #b8a632;
+  --hueso: #ede6d3;
+  --chispa: #dcd801;
+
+  --background: var(--negro);
+  --foreground: var(--hueso);
+  --card: #161210;
+  --card-foreground: var(--hueso);
+  --popover: #161210;
+  --popover-foreground: var(--hueso);
+  --primary: var(--mostaza);
+  --primary-foreground: var(--negro);
+  --secondary: var(--bordo);
+  --secondary-foreground: var(--hueso);
+  --muted: #1b1712;
+  --muted-foreground: #b3ab98;
+  --accent: var(--bordo);
+  --accent-foreground: var(--hueso);
+  --destructive: #a8321f;
+  --destructive-foreground: var(--hueso);
+  --border: #2e2616;
+  --input: #1b1712;
+  --ring: var(--mostaza);
+  --gold: var(--mostaza);
+  --wine: var(--bordo);
+  --moss: var(--musgo);
 }
 
 .dark {
-  --background: oklch(0.18 0.025 145);
-  --foreground: oklch(0.94 0.04 90);
+  --background: var(--negro);
+  --foreground: var(--hueso);
 }
 
 @layer base {
@@ -95,17 +93,14 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    background-image:
-      radial-gradient(at 50% 0%, oklch(0.22 0.03 145 / 0.6), transparent 60%),
-      radial-gradient(at 50% 100%, oklch(0.16 0.08 25 / 0.15), transparent 70%);
-    background-attachment: fixed;
   }
-  h1, h2, h3, .font-display {
+  h1, h2, h3, .font-heading {
+    font-family: var(--font-heading);
+    letter-spacing: 0;
+  }
+  .font-display {
     font-family: var(--font-display);
-    letter-spacing: 0.02em;
-  }
-  .font-blackletter {
-    font-family: var(--font-blackletter);
+    font-weight: 700;
   }
 }
 
@@ -118,13 +113,16 @@
 @utility text-wine {
   color: var(--wine);
 }
+@utility text-oliva {
+  color: var(--oliva);
+}
 @utility bg-wine {
   background-color: var(--wine);
 }
 
 @keyframes petal-glow {
-  0%, 100% { filter: drop-shadow(0 0 8px oklch(0.82 0.16 88 / 0.3)); }
-  50% { filter: drop-shadow(0 0 24px oklch(0.82 0.16 88 / 0.7)); }
+  0%, 100% { filter: drop-shadow(0 0 8px rgb(184 166 50 / 0.3)); }
+  50% { filter: drop-shadow(0 0 24px rgb(184 166 50 / 0.7)); }
 }
 @keyframes slow-spin {
   to { transform: rotate(360deg); }

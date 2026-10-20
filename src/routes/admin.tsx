@@ -130,8 +130,8 @@ function Admin() {
       {error && <p className="text-xs text-destructive mb-4">{error}</p>}
       <form onSubmit={saveSettings} className="mb-10 border border-gold/50 bg-card/50 p-5 md:p-7">
         <div className="mb-6">
-          <p className="font-display text-[10px] uppercase tracking-[0.25em] text-wine">Contenido público</p>
-          <h2 className="mt-1 font-blackletter text-3xl text-gold">Próximo evento y entradas</h2>
+          <p className="font-display text-[10px] uppercase tracking-[0.25em] text-mostaza">Contenido público</p>
+          <h2 className="mt-1 font-heading text-3xl text-oliva">Próximo evento y entradas</h2>
         </div>
         <div className="grid gap-5 md:grid-cols-2">
           <AdminField label="Nombre del evento" value={settings.title} onChange={(title) => setSettings({ ...settings, title })} />
@@ -158,7 +158,7 @@ function Admin() {
         </div>
       </form>
 
-      <h2 className="mb-4 font-blackletter text-3xl text-gold">Postulaciones ({apps.length})</h2>
+      <h2 className="mb-4 font-heading text-3xl text-oliva">Postulaciones ({apps.length})</h2>
       {loading ? (
         <p className="text-muted-foreground text-sm">Cargando...</p>
       ) : apps.length === 0 ? (
@@ -170,12 +170,12 @@ function Admin() {
               <div className="flex justify-between items-start gap-4 flex-wrap">
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-gold/80 font-display">{a.disciplina} · {a.ciudad}</p>
-                  <h3 className="font-blackletter text-2xl text-gold mt-1">{a.nombre_artistico}</h3>
+                  <h3 className="font-heading text-2xl text-oliva mt-1">{a.nombre_artistico}</h3>
                   <p className="text-sm text-foreground/80">{a.nombre} · {a.instagram}</p>
                 </div>
                 <button
                   onClick={() => remove(a.id)}
-                  className="text-xs font-display uppercase tracking-widest text-wine hover:text-destructive"
+                  className="text-xs font-display uppercase tracking-widest text-mostaza hover:text-destructive"
                 >
                   Eliminar
                 </button>

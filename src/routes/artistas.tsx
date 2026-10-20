@@ -49,7 +49,7 @@ function Artistas() {
                   src={a.image}
                   alt={a.name}
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  className="absolute inset-0 h-full w-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent" />
               </div>
@@ -60,7 +60,7 @@ function Artistas() {
               <p className="text-xs uppercase tracking-[0.25em] text-gold/80 font-display">
                 {a.discipline}
               </p>
-              <h3 className="font-serif text-3xl text-gold mt-2">{a.name}</h3>
+              <h3 className="font-heading text-3xl text-gold mt-2">{a.name}</h3>
               <p className="mt-3 text-sm text-foreground/80">{a.act}</p>
               {a.venue && (
                 <p className="mt-2 text-xs text-muted-foreground">@ {a.venue}</p>

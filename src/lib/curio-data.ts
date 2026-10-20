@@ -30,15 +30,15 @@ export type Artist = {
 };
 
 export const ARTISTS: Artist[] = [
-  { id: "1", name: "INSITU", act: "Jam Musical / Open Mic", discipline: "Música", venue: "INSITU", image: "/__l5e/assets-v1/d9c8a851-97b1-4880-8b34-401310342ef6/insitu-band.jpg" },
+  { id: "1", name: "INSITU", act: "Jam Musical / Open Mic", discipline: "Música", venue: "INSITU", image: "/img/insitu-band.jpg" },
   { id: "2", name: "MAV DALI", act: "DJ Set", discipline: "Música" },
-  { id: "3", name: "DAMO", act: "Indumentaria Intervenida y Diseño Propio", discipline: "Indumentaria", image: "/__l5e/assets-v1/1fcee07e-bc3c-4d98-ae78-36b494188dc4/damo-portrait.jpg" },
-  { id: "4", name: "EVA.BELLONI", act: "Indumentaria Intervenida y Diseño Propio", discipline: "Indumentaria", image: "/__l5e/assets-v1/bfdf17d4-c15f-451f-9706-369415ab35ea/eva-belloni-hoodie.jpg" },
-  { id: "5", name: "REAL.CLOTHING", act: "Indumentaria Intervenida", discipline: "Indumentaria", image: "/__l5e/assets-v1/27a21620-20de-42bb-a371-4eaba2a7c19b/real-clothing.jpg" },
+  { id: "3", name: "DAMO", act: "Indumentaria Intervenida y Diseño Propio", discipline: "Indumentaria", image: "/img/damo-portrait.jpg" },
+  { id: "4", name: "EVA.BELLONI", act: "Indumentaria Intervenida y Diseño Propio", discipline: "Indumentaria", image: "/img/eva-belloni-hoodie.jpg" },
+  { id: "5", name: "REAL.CLOTHING", act: "Indumentaria Intervenida", discipline: "Indumentaria", image: "/img/real-clothing.jpg" },
   { id: "6", name: "INK.CLOTHING", act: "Indumentaria Vintage", discipline: "Indumentaria" },
   
   { id: "7", name: "LA PELU DE VANDI", act: "Hair Tattoo", discipline: "Hair Tattoo" },
-  { id: "8", name: "CHIKI & MOX", act: "Graffiti en Vivo", discipline: "Graffiti", image: "/__l5e/assets-v1/f0c5f140-3d79-4565-87b3-01d58de410c9/mox-graffiti.jpg" },
+  { id: "8", name: "CHIKI & MOX", act: "Graffiti en Vivo", discipline: "Graffiti", image: "/img/mox-graffiti.jpg" },
   { id: "9", name: "FEDE BESIO", act: "Poesía", discipline: "Poesía" },
   { id: "9b", name: "FEDE BESIO", act: "Exposición Fotográfica", discipline: "Fotografía" },
   { id: "10", name: "TOMI GREENE", act: "Flash Tattoo", discipline: "Flash Tattoo" },
@@ -54,7 +54,7 @@ export type AgendaItem = {
 };
 
 export const AGENDA: AgendaItem[] = [
-  { id: "a1", time: "19:00", title: "Apertura · Graffiti en Vivo", artist: "CHIKI & MOX", discipline: "Graffiti", image: "/__l5e/assets-v1/f0c5f140-3d79-4565-87b3-01d58de410c9/mox-graffiti.jpg" },
+  { id: "a1", time: "19:00", title: "Apertura · Graffiti en Vivo", artist: "CHIKI & MOX", discipline: "Graffiti", image: "/img/mox-graffiti.jpg" },
   { id: "a2", time: "19:30", title: "Hair Tattoo Sessions", artist: "LA PELU DE VANDI", discipline: "Hair Tattoo" },
   { id: "a3", time: "20:00", title: "Indumentaria Intervenida · Showroom", artist: "DAMO · EVA.BELLONI · REAL · INK", discipline: "Indumentaria" },
   { id: "a4", time: "20:30", title: "Flash Tattoo Walk-ins", artist: "TOMI GREENE", discipline: "Flash Tattoo" },
@@ -85,10 +85,10 @@ export type GalleryItem = {
 };
 
 export const GALLERY: GalleryItem[] = [
-  { id: "g1", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "INSITU · Jam musical", hue: 47, image: "/__l5e/assets-v1/296ec062-b989-43ad-973a-a1bd336d1219/insitu-banner.jpg" },
-  { id: "g2", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "CHIKI & MOX · Graffiti en vivo", hue: 94, image: "/__l5e/assets-v1/f0c5f140-3d79-4565-87b3-01d58de410c9/mox-graffiti.jpg" },
-  { id: "g3", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "DAMO · Indumentaria", hue: 141, image: "/__l5e/assets-v1/3b4bb781-ed5d-4a03-bf31-b48cbb5d49a2/damo.jpg" },
-  { id: "g4", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "EVA.BELLONI · Detalle", hue: 188, image: "/__l5e/assets-v1/e788d703-5cf6-4f7d-aa46-b56b62f94902/eva-belloni-patch.jpg" },
-  { id: "g5", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "REAL.CLOTHING · Intervención", hue: 235, image: "/__l5e/assets-v1/27a21620-20de-42bb-a371-4eaba2a7c19b/real-clothing.jpg" },
-  { id: "g6", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "INSITU · En vivo", hue: 282, image: "/__l5e/assets-v1/d9c8a851-97b1-4880-8b34-401310342ef6/insitu-band.jpg" },
+  { id: "g1", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "INSITU · Jam musical", hue: 47, image: "/img/insitu-banner.jpg" },
+  { id: "g2", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "CHIKI & MOX · Graffiti en vivo", hue: 94, image: "/img/mox-graffiti.jpg" },
+  { id: "g3", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "DAMO · Indumentaria", hue: 141, image: "/img/damo.jpg" },
+  { id: "g4", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "EVA.BELLONI · Detalle", hue: 188, image: "/img/eva-belloni-patch.jpg" },
+  { id: "g5", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "REAL.CLOTHING · Intervención", hue: 235, image: "/img/real-clothing.jpg" },
+  { id: "g6", type: "photo", edition: "Edición 01 · Buenos Aires", caption: "INSITU · En vivo", hue: 282, image: "/img/insitu-band.jpg" },
 ];

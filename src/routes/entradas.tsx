@@ -1,9 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Minus, Plus, ShieldCheck, Ticket } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/Navbar";
-import { supabase } from "@/integrations/supabase/client";
-import { DEFAULT_EVENT_SETTINGS, type EventSettings } from "@/lib/event-settings";
+import { EVENT } from "@/lib/event";
 
 export const Route = createFileRoute("/entradas")({
   head: () => ({
@@ -11,195 +8,57 @@ export const Route = createFileRoute("/entradas")({
       { title: "Entradas · CURIO" },
       {
         name: "description",
-        content: "Reservá tu lugar para la próxima edición de Curio.",
+        content: `${EVENT.name} · ${EVENT.dateLabel}, de ${EVENT.doors} a ${EVENT.close} h. Entrada en puerta.`,
       },
     ],
   }),
   component: Entradas,
 });
 
-const formatPrice = (value: number) =>
-  new Intl.NumberFormat("es-AR", {
-    style: "currency",
-    currency: "ARS",
-    maximumFractionDigits: 0,
-  }).format(value);
+const INFO = [
+  { label: "Fecha", value: EVENT.dateLabel },
+  { label: "Horario", value: `${EVENT.doors} a ${EVENT.close} h` },
+  { label: "Lugar", value: EVENT.city },
+  { label: "Entrada", value: EVENT.price ?? "Próximamente" },
+];
 
 function Entradas() {
-  const [settings, setSettings] = useState<EventSettings>(DEFAULT_EVENT_SETTINGS);
-  const [quantity, setQuantity] = useState(1);
-  const [names, setNames] = useState([""]);
-  const total = useMemo(() => quantity * settings.ticket_price, [quantity, settings.ticket_price]);
-
-  useEffect(() => {
-    supabase
-      .from("event_settings")
-      .select("*")
-      .eq("id", 1)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (data) setSettings(data as EventSettings);
-      });
-  }, []);
-
-  const changeQuantity = (nextQuantity: number) => {
-    const safeQuantity = Math.min(settings.max_tickets_per_order, Math.max(1, nextQuantity));
-    setQuantity(safeQuantity);
-    setNames((current) =>
-      Array.from({ length: safeQuantity }, (_, index) => current[index] ?? ""),
-    );
-  };
-
-  const updateName = (index: number, value: string) => {
-    setNames((current) =>
-      current.map((name, currentIndex) =>
-        currentIndex === index ? value : name,
-      ),
-    );
-  };
-
   return (
-    <PageShell
-      title="Entradas"
-      subtitle="Tu acceso a la próxima experiencia multicultural de CURIO."
-    >
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
-        <section className="relative overflow-hidden border border-gold/60 bg-card/40 p-6 md:p-8">
-          <div className="absolute -right-16 -top-16 size-52 rounded-full border border-gold/20" />
-          <div className="absolute -right-8 -top-8 size-36 rounded-full border border-wine/30" />
+    <PageShell title="Entradas" subtitle="Info para sumarte a la próxima edición de CURIO.">
+      <section className="relative overflow-hidden border border-gold/60 bg-card/40 p-6 md:p-10">
+        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-mostaza">Próxima edición</p>
+        <h2 className="mt-2 font-heading text-4xl text-oliva md:text-6xl">{EVENT.name}</h2>
 
-          <div className="relative">
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div>
-                <p className="font-display text-[10px] uppercase tracking-[0.3em] text-wine">
-                  Próxima edición
-                </p>
-                <h2 className="mt-2 font-blackletter text-4xl text-gold md:text-5xl">
-                  {settings.title}
-                </h2>
-              </div>
-              <span className="border border-gold/60 px-3 py-2 font-display text-[10px] uppercase tracking-[0.22em] text-gold">
-                Cupos limitados
-              </span>
+        <dl className="mt-8 grid grid-cols-2 gap-5 border-y border-border py-6 md:grid-cols-4">
+          {INFO.map((i) => (
+            <div key={i.label} className="border-l-2 border-gold/60 pl-3">
+              <dt className="font-display text-[10px] uppercase tracking-[0.22em] text-foreground/50">{i.label}</dt>
+              <dd className="mt-1 text-base text-foreground">{i.value}</dd>
             </div>
+          ))}
+        </dl>
 
-            <dl className="mt-8 grid grid-cols-2 gap-5 border-y border-border py-6 sm:grid-cols-3">
-              <div>
-                <dt className="font-display text-[10px] uppercase tracking-[0.22em] text-foreground/50">Fecha</dt>
-                <dd className="mt-1 text-sm text-foreground">{settings.date_label}</dd>
-              </div>
-              <div>
-                <dt className="font-display text-[10px] uppercase tracking-[0.22em] text-foreground/50">Lugar</dt>
-                <dd className="mt-1 text-sm text-foreground">{settings.venue}</dd>
-              </div>
-              <div>
-                <dt className="font-display text-[10px] uppercase tracking-[0.22em] text-foreground/50">Entrada</dt>
-                <dd className="mt-1 text-sm text-foreground">{formatPrice(settings.ticket_price)}</dd>
-              </div>
-            </dl>
+        <p className="mt-6 max-w-2xl text-sm leading-7 text-foreground/75">
+          La entrada se abona en puerta. {EVENT.venueNote} El precio se anuncia en Instagram junto con el line-up.
+        </p>
 
-            <div className="mt-8">
-              <div className="flex items-end justify-between gap-4">
-                <div>
-                  <p className="font-display text-[10px] uppercase tracking-[0.25em] text-gold">
-                    Cantidad de entradas
-                  </p>
-                  <p className="mt-1 text-xs text-foreground/55">Máximo {settings.max_tickets_per_order} por compra</p>
-                </div>
-                <div className="flex items-center border border-border bg-background/40">
-                  <button
-                    type="button"
-                    onClick={() => changeQuantity(quantity - 1)}
-                    disabled={quantity === 1}
-                    className="grid size-11 place-items-center text-gold transition-colors hover:bg-gold/10 disabled:cursor-not-allowed disabled:opacity-30"
-                    aria-label="Quitar una entrada"
-                  >
-                    <Minus size={16} />
-                  </button>
-                  <span className="grid size-11 place-items-center border-x border-border font-display text-lg text-foreground">
-                    {quantity}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => changeQuantity(quantity + 1)}
-                    disabled={quantity === settings.max_tickets_per_order}
-                    className="grid size-11 place-items-center text-gold transition-colors hover:bg-gold/10 disabled:cursor-not-allowed disabled:opacity-30"
-                    aria-label="Agregar una entrada"
-                  >
-                    <Plus size={16} />
-                  </button>
-                </div>
-              </div>
-
-              <div className="mt-7 space-y-4">
-                {names.map((name, index) => (
-                  <label key={index} className="block">
-                    <span className="font-display text-[10px] uppercase tracking-[0.22em] text-foreground/60">
-                      Nombre de la entrada {index + 1}
-                    </span>
-                    <input
-                      value={name}
-                      onChange={(event) => updateName(index, event.target.value)}
-                      placeholder="Nombre y apellido"
-                      autoComplete="name"
-                      className="mt-2 w-full border border-border bg-background/50 px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-foreground/25 focus:border-gold"
-                    />
-                  </label>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <aside className="h-fit border border-wine/60 bg-card/30 p-6 md:p-8 lg:sticky lg:top-24">
-          <div className="flex items-center gap-3 border-b border-border pb-5">
-            <Ticket className="text-gold" size={24} />
-            <div>
-              <p className="font-display text-[10px] uppercase tracking-[0.25em] text-foreground/50">Tu selección</p>
-              <h3 className="font-blackletter text-3xl text-gold">Resumen</h3>
-            </div>
-          </div>
-
-          <div className="space-y-4 py-6 text-sm">
-            <div className="flex justify-between gap-4">
-              <span className="text-foreground/65">Entradas</span>
-              <span>{quantity}</span>
-            </div>
-            <div className="flex justify-between gap-4">
-              <span className="text-foreground/65">Precio unitario</span>
-              <span>{formatPrice(settings.ticket_price)}</span>
-            </div>
-            <div className="flex items-baseline justify-between gap-4 border-t border-border pt-5">
-              <span className="font-display text-xs uppercase tracking-[0.2em] text-gold">Total</span>
-              <strong className="font-blackletter text-3xl font-normal text-gold">{formatPrice(total)}</strong>
-            </div>
-          </div>
-
-          {settings.tickets_enabled && settings.payment_url ? (
-            <a
-              href={settings.payment_url}
-              target="_blank"
-              rel="noreferrer"
-              className="block w-full border border-gold bg-gold px-5 py-4 text-center font-display text-xs uppercase tracking-[0.24em] text-background transition-colors hover:bg-wine hover:text-foreground"
-            >
-              Continuar al pago
-            </a>
-          ) : (
-            <button
-              type="button"
-              disabled
-              className="w-full cursor-not-allowed border border-gold/40 bg-gold/10 px-5 py-4 font-display text-xs uppercase tracking-[0.24em] text-gold/60"
-            >
-              Entradas disponibles próximamente
-            </button>
-          )}
-
-          <div className="mt-5 flex items-start gap-3 text-xs leading-relaxed text-foreground/55">
-            <ShieldCheck className="mt-0.5 shrink-0 text-wine" size={17} />
-            <p>CURIO solo solicitará el nombre que figure en cada entrada. El pago será procesado de forma externa y segura.</p>
-          </div>
-        </aside>
-      </div>
+        <div className="mt-7 flex flex-wrap gap-3">
+          <a
+            href={EVENT.instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="bg-gold px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-background transition-colors hover:bg-wine hover:text-foreground"
+          >
+            Seguinos @{EVENT.instagram}
+          </a>
+          <Link
+            to="/agenda"
+            className="border border-gold px-5 py-3 font-display text-xs uppercase tracking-[0.22em] text-gold transition-colors hover:bg-gold hover:text-background"
+          >
+            Ver agenda
+          </Link>
+        </div>
+      </section>
     </PageShell>
   );
 }
