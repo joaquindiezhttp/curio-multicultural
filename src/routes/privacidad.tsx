@@ -57,8 +57,8 @@ function PrivacyPage() {
 
       <Section title="Plataforma y hosting">
         <p>
-          El sitio está construido sobre Lovable y su infraestructura gestionada.
-          La plataforma proporciona cifrado en tránsito (HTTPS) y controles de
+          El sitio se aloja en Vercel y usa Supabase para la base de datos.
+          Ambas plataformas proporcionan cifrado en tránsito (HTTPS) y controles de
           acceso a la base de datos. La responsabilidad sobre el contenido
           publicado y las decisiones editoriales corresponde al equipo de Curio.
         </p>
